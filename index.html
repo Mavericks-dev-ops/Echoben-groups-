@@ -1607,6 +1607,11 @@ document.getElementById("applicationForm").addEventListener("submit", async func
         return;
     }
 
+    if (!window.echobenSupabase) {
+    message.textContent = "Connection error. Please try again later.";
+    return;
+    }
+
     const formData = new FormData(form);
 
     const application = {
