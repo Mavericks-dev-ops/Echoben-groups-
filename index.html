@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECHOBEN Groups | Remote Talent Training & Global Job Placement Agency</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        },
+                        dark: {
+                            900: '#090d16',
+                            800: '#111827',
+                            700: '#1f2937'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-pattern {
+            background-color: #090d16;
+            background-image: radial-gradient(rgba(34, 197, 94, 0.12) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .glow-gold {
+            box-shadow: 0 0 25px -5px rgba(234, 179, 8, 0.3);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 30px -5px rgba(34, 197, 94, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-slate-950">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-slate-950 text-xs sm:text-sm py-2.5 px-4 text-center font-bold tracking-wide shadow-md">
+        <i class="fa-solid fa-bullhorn mr-2"></i> BATCH C RECRUITMENT LIVE: Earn $300 - $1,000 Monthly Working Remotely. Secure Your Slot Today!
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="sticky top-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-brand-500 flex items-center justify-center font-black text-slate-950 text-2xl shadow-lg">
+                    E
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-white">ECHOBEN</span>
+                    <span class="text-xl font-light text-brand-400">GROUPS</span>
+                    <div class="text-[9px] uppercase tracking-widest text-slate-400 font-semibold">Empowering Skills & Careers</div>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#why-remote" class="hover:text-brand-400 transition">Why Remote?</a>
+                <a href="#packages" class="hover:text-brand-400 transition">Enrollment Options</a>
+                <a href="#criteria" class="hover:text-brand-400 transition">Who Can Apply</a>
+                <a href="#curriculum" class="hover:text-brand-400 transition">Training Tracks</a>
+                <a href="#faq" class="hover:text-brand-400 transition">FAQ</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <a href="#packages" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-brand-500 text-slate-950 font-bold hover:bg-brand-400 transition glow-emerald text-sm">
+                    Join Batch C <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                </a>
+                <button id="menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none text-xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 border-b border-slate-700 px-4 pt-3 pb-5 space-y-3">
+            <a href="#why-remote" class="block py-2 text-slate-300 hover:text-brand-400">Why Remote?</a>
+            <a href="#packages" class="block py-2 text-slate-300 hover:text-brand-400">Enrollment Options</a>
+            <a href="#criteria" class="block py-2 text-slate-300 hover:text-brand-400">Who Can Apply</a>
+            <a href="#curriculum" class="block py-2 text-slate-300 hover:text-brand-400">Training Tracks</a>
+            <a href="#faq" class="block py-2 text-slate-300 hover:text-brand-400">FAQ</a>
+            <a href="#packages" class="block text-center w-full py-3 mt-2 rounded-xl bg-brand-500 text-slate-950 font-bold">Join Batch C Now</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-pattern relative overflow-hidden py-20 lg:py-28 border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-brand-500/30 text-brand-400 text-xs font-semibold mb-6 shadow-inner">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span>Global Remote Talent Agency • Batch C Recruitment</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight mb-6">
+                        Empowering Skills. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-emerald-300 to-amber-400">Building Global Careers.</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-slate-300 mb-8 font-normal leading-relaxed">
+                        Break free from local economic limits. Train in high-demand remote skills—<strong class="text-white">Cold Calling, Customer Support, and Virtual Assistance</strong>—and secure stable global placement earning <strong class="text-amber-400">$300 - $1,000 Monthly</strong>[span_1](start_span)[span_1](end_span).
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <a href="#packages" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-500 text-slate-950 font-extrabold hover:bg-brand-400 transition glow-emerald text-base text-center">
+                            View Enrollment Packages <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#whatsapp-join" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-emerald-600/20 border border-emerald-500/40 text-emerald-300 font-bold hover:bg-emerald-600/30 transition text-base text-center flex items-center justify-center">
+                            <i class="fa-brands fa-whatsapp text-lg mr-2 text-emerald-400"></i> Join Batch C WhatsApp Group
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Graphic Card / Earnings Highlight -->
+                <div class="lg:col-span-5">
+                    <div class="bg-gradient-to-b from-slate-800 to-dark-800 border border-slate-700 rounded-3xl p-6 sm:p-8 shadow-2xl relative">
+                        <div class="absolute -top-4 -right-4 bg-amber-500 text-slate-950 font-black text-xs px-4 py-2 rounded-xl uppercase tracking-wider shadow-lg glow-gold">
+                            Batch C Open
+                        </div>
+                        <div class="text-center mb-6 pb-6 border-b border-slate-700">
+                            <span class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Target Earning Potential</span>
+                            <div class="text-3xl sm:text-4xl font-black text-amber-400 mt-1">$300 - $1,000 <span class="text-sm font-normal text-slate-300">/ Monthly</span>[span_2](start_span)[span_2](end_span)</div>
+                        </div>
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center space-x-3 text-sm text-slate-200">
+                                <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check"></i></div>
+                                <span>Paid Professional Training & Job Placement[span_3](start_span)[span_3](end_span)</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-sm text-slate-200">
+                                <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check"></i></div>
+                                <span>Work Remotely from Anywhere in the World[span_4](start_span)[span_4](end_span)</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-sm text-slate-200">
+                                <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-check"></i></div>
+                                <span>Rigorous Simulation & Real-world Script Practice</span>
+                            </div>
+                        </div>
+                        <a href="#criteria" class="block w-full py-3.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-center font-bold text-white text-sm transition">
+                            Check Requirements & Eligibility
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOTIVATION & WHY REMOTE WORK WITH ECHOBEN -->
+    <section id="why-remote" class="py-24 bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-400 font-semibold text-sm uppercase tracking-widest">The Future of Work</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mt-2 mb-4">Why Working Remotely Changes Everything</h2>
+                <p class="text-slate-300 text-base leading-relaxed">
+                    Geography should never limit your income. By earning in foreign currencies and working with international enterprises, you insulate yourself from local inflation while building a bulletproof global career.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-dark-900 border border-slate-800 rounded-2xl p-8 hover:border-brand-500/50 transition">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Earn in Strong Foreign Currency</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Say goodbye to local currency devaluation. ECHOBEN places you into roles where you earn stable dollars ($300 - $1,000+ monthly), multiplying your local purchasing power exponentially[span_5](start_span)[span_5](end_span).
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-dark-900 border border-slate-800 rounded-2xl p-8 hover:border-brand-500/50 transition">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-laptop-house"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Total Location Independence</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Work from the comfort of your home office, coffee shop, or anywhere with a stable laptop and internet connection. Eliminate grueling commutes and toxic physical office environments.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-dark-900 border border-slate-800 rounded-2xl p-8 hover:border-brand-500/50 transition">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">The ECHOBEN Advantage</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Unlike guessing your way through online tutorials, ECHOBEN provides structured training, tested scripts, accountability coaching, and direct pathways to active global employers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHOOSE YOUR ENROLLMENT PACKAGE (FROM FLYER) -->
+    <section id="packages" class="py-24 bg-dark-900 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-amber-400 font-semibold text-sm uppercase tracking-widest">Batch C Admission Tiers</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mt-2 mb-4">Choose Your Enrollment Package</h2>
+                <p class="text-slate-300 text-base">Select the financial partnership pathway that suits your career goals and onboarding preference[span_6](start_span)[span_6](end_span).</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- OPTION A -->
+                <div class="bg-dark-800 border border-slate-700 rounded-3xl p-8 flex flex-col justify-between hover:border-brand-500 transition relative">
+                    <div>
+                        <div class="inline-block px-3 py-1 rounded-full bg-slate-700 text-slate-200 text-xs font-bold uppercase tracking-wider mb-4">
+                            Option A • Standard[span_7](start_span)[span_7](end_span)
+                        </div>
+                        <div class="text-4xl font-black text-white mb-2">₦50,000 <span class="text-xs font-normal text-slate-400">/ payable upon enrollment</span>[span_8](start_span)[span_8](end_span)</div>
+                        <p class="text-slate-400 text-sm mb-6 pb-6 border-b border-slate-700">Ideal for starters looking for structured training with flexible income sharing upon placement.</p>
+                        
+                        <ul class="space-y-4 mb-8 text-sm text-slate-300">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-brand-400 mt-1 mr-3"></i>
+                                <span><strong>30% of monthly gross earnings</strong> post-placement[span_9](start_span)[span_9](end_span)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-brand-400 mt-1 mr-3"></i>
+                                <span><strong>Tenure:</strong> 6 consecutive months[span_10](start_span)[span_10](end_span)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-brand-400 mt-1 mr-3"></i>
+                                <span>Remit by the 7th of each following month[span_11](start_span)[span_11](end_span)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-brand-400 mt-1 mr-3"></i>
+                                <span>Full standard curriculum & placement guidance</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#whatsapp-join" class="block w-full py-4 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-center text-sm transition">
+                        Select Option A[span_12](start_span)[span_12](end_span)
+                    </a>
+                </div>
+
+                <!-- OPTION B (POPULAR) -->
+                <div class="bg-gradient-to-b from-dark-800 to-slate-900 border-2 border-brand-500 rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative glow-emerald">
+                    <div class="absolute -top-4 right-8 bg-brand-500 text-slate-950 font-extrabold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider">
+                        Most Popular[span_13](start_span)[span_13](end_span)
+                    </div>
+                    <div>
+                        <div class="inline-block px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider mb-4">
+                            Option B • Standard Plus[span_14](start_span)[span_14](end_span)
+                        </div>
+                        <div class="text-4xl font-black text-white mb-2">₦100,000 <span class="text-xs font-normal text-slate-400">/ payable upon enrollment</span>[span_15](start_span)[span_15](end_span)</div>
+                        <p class="text-slate-400 text-sm mb-6 pb-6 border-b border-slate-700">Balanced upfront investment with lower post-placement revenue share.</p>
+                        
+                        <ul class="space-y-4 mb-8 text-sm text-slate-300">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-brand-400 mt-1 mr-3"></i>
+                                <span><strong>10% of monthly gross earnings</strong> post-placement[span_16](start_span)[span_16](end_span)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-brand-400 mt-1 mr-3"></i>
+                                <span><strong>Tenure:</strong> 6 consecutive months[span_17](start_span)[span_17](end_span)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-brand-400 mt-1 mr-3"></i>
+                                <span>Remit by the 7th of each following month[span_18](start_span)[span_18](end_span)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-brand-400 mt-1 mr-3"></i>
+                                <span>Priority mentorship & accelerated career support</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#whatsapp-join" class="block w-full py-4 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-black text-center text-sm transition shadow-lg">
+                        Select Option B[span_19](start_span)[span_19](end_span)
+                    </a>
+                </div>
+
+                <!-- OPTION C -->
+                <div class="bg-dark-800 border border-slate-700 rounded-3xl p-8 flex flex-col justify-between hover:border-amber-500 transition relative">
+                    <div>
+                        <div class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
+                            Option C • Premium[span_20](start_span)[span_20](end_span)
+                        </div>
+                        <div class="text-4xl font-black text-white mb-2">₦400,000 <span class="text-xs font-normal text-slate-400">/ one-time payment</span>[span_21](start_span)[span_21](end_span)</div>
+                        <p class="text-slate-400 text-sm mb-6 pb-6 border-b border-slate-700">Complete independence with zero ongoing revenue deductions after getting hired[span_22](start_span)[span_22](end_span).</p>
+                        
+                        <ul class="space-y-4 mb-8 text-sm text-slate-300">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-amber-400 mt-1 mr-3"></i>
+                                <span><strong>0% post-employment royalty</strong> (Keep 100% earnings)[span_23](start_span)[span_23](end_span)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-amber-400 mt-1 mr-3"></i>
+                                <span>One-time payment in full before onboarding[span_24](start_span)[span_24](end_span)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-amber-400 mt-1 mr-3"></i>
+                                <span>No monthly remittances or deductions[span_25](start_span)[span_25](end_span)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-amber-400 mt-1 mr-3"></i>
+                                <span>Express access to advanced modules & 1-on-1 coaching</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#whatsapp-join" class="block w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-center text-sm transition glow-gold">
+                        Select Option C[span_26](start_span)[span_26](end_span)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHO CAN APPLY & CRITERIA -->
+    <section id="criteria" class="py-24 bg-dark-800/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-brand-400 font-semibold text-sm uppercase tracking-widest">Eligibility Checklist</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mt-2 mb-6">Who Can Apply for Batch C?</h2>
+                    <p class="text-slate-300 leading-relaxed mb-6">
+                        We maintain rigorous standards to ensure our hiring partners receive top-tier operators. Review the essential criteria below before joining our recruitment pool[span_27](start_span)[span_27](end_span).
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 bg-dark-900 border border-slate-800 p-4 rounded-xl">
+                            <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold">18 Years and Above[span_28](start_span)[span_28](end_span)</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Open to dedicated young professionals ready for global remote careers.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 bg-dark-900 border border-slate-800 p-4 rounded-xl">
+                            <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold">Good English / American Accent[span_29](start_span)[span_29](end_span)</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Clear articulation and professional communication are mandatory for client-facing roles.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 bg-dark-900 border border-slate-800 p-4 rounded-xl">
+                            <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold">Proficient in Using a Laptop[span_30](start_span)[span_30](end_span)</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Must have reliable access to a computer and stable internet connection.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 bg-dark-900 border border-slate-800 p-4 rounded-xl">
+                            <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold">Applicants Welcome Globally[span_31](start_span)[span_31](end_span)</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Borderless remote training and placement opportunities.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HOW TO APPLY BOX & WHATSAPP CTA -->
+                <div id="whatsapp-join" class="bg-dark-900 border-2 border-emerald-500/60 rounded-3xl p-8 sm:p-10 shadow-2xl">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto text-3xl mb-4">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-white">How to Join Batch C</h3>
+                        <p class="text-slate-400 text-sm mt-1">Take the first step toward your remote career right now[span_32](start_span)[span_32](end_span).</p>
+                    </div>
+
+                    <div class="space-y-6 mb-8 text-sm text-slate-200">
+                        <div class="flex items-start space-x-4 bg-dark-800 p-4 rounded-xl border border-slate-700">
+                            <span class="w-7 h-7 rounded-full bg-brand-500 text-slate-950 font-black flex items-center justify-center text-xs flex-shrink-0">1</span>
+                            <div>
+                                <strong class="text-white block mb-0.5">Join the WhatsApp Group</strong>
+                                <span class="text-slate-400 text-xs">Click the button below to enter our official Batch C admission channel[span_33](start_span)[span_33](end_span).</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 bg-dark-800 p-4 rounded-xl border border-slate-700">
+                            <span class="w-7 h-7 rounded-full bg-brand-500 text-slate-950 font-black flex items-center justify-center text-xs flex-shrink-0">2</span>
+                            <div>
+                                <strong class="text-white block mb-0.5">Send Audio Introduction</strong>
+                                <span class="text-slate-400 text-xs">Send a 1-minute voice-note introduction showcasing your spoken English and tone[span_34](start_span)[span_34](end_span).</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://chat.whatsapp.com/Ktb6hMSCgRv6f3uD1lzxBQ?s=cl&p=a&mlu=4&iam=2" target="_blank" class="block w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-center text-base transition shadow-lg flex items-center justify-center">
+                        <i class="fa-brands fa-whatsapp text-xl mr-2"></i> Join Batch C on WhatsApp Now[span_35](start_span)[span_35](end_span)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAINING TRACKS -->
+    <section id="curriculum" class="py-24 bg-dark-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-400 font-semibold text-sm uppercase tracking-widest">Specialized Skills</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mt-2 mb-4">Core Remote Tracks You Will Master</h2>
+                <p class="text-slate-300 text-base">Engineered to match what global employers are hiring for right now.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Track 1 -->
+                <div class="bg-dark-800 border border-slate-700 rounded-2xl p-8 hover:border-brand-500 transition">
+                    <div class="w-14 h-14 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Cold Calling</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Master outbound prospecting, script execution, gatekeeper navigation, and booking qualified sales-ready meetings for international companies.
+                    </p>
+                    <div class="text-xs text-brand-400 font-bold uppercase tracking-wider">High Demand Track</div>
+                </div>
+
+                <!-- Track 2 -->
+                <div class="bg-dark-800 border border-slate-700 rounded-2xl p-8 hover:border-brand-500 transition">
+                    <div class="w-14 h-14 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Customer Support</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Deliver exceptional client care, manage ticketing systems, resolve inquiries with empathy, and safeguard customer retention metrics.
+                    </p>
+                    <div class="text-xs text-brand-400 font-bold uppercase tracking-wider">High Retention Track</div>
+                </div>
+
+                <!-- Track 3 -->
+                <div class="bg-dark-800 border border-slate-700 rounded-2xl p-8 hover:border-brand-500 transition">
+                    <div class="w-14 h-14 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Virtual Assistant</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Master executive calendar management, email inbox triage, digital workflow administration, and cloud productivity tools.
+                    </p>
+                    <div class="text-xs text-brand-400 font-bold uppercase tracking-wider">Core Operational Track</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 bg-dark-800/50 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-400 font-semibold text-sm uppercase tracking-widest">Questions & Answers</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mt-2 mb-4">Frequently Asked Questions</h2>
+                <p class="text-slate-300">Everything you need to know about joining Batch C.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-dark-900 border border-slate-800 rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold text-white mb-2">What is included in the training?</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Access to course modules, virtual workshops, live mentorship sessions, practical script drills, portfolio building, and direct job placement support.</p>
+                </div>
+                <div class="bg-dark-900 border border-slate-800 rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold text-white mb-2">How do the payment pathways work?</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">You can choose Option A (lower upfront fee with a 6-month revenue share), Option B (moderate upfront fee with a lower revenue share), or Option C (full upfront payment with 0% post-employment deductions)[span_36](start_span)[span_36](end_span).</p>
+                </div>
+                <div class="bg-dark-900 border border-slate-800 rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold text-white mb-2">How do I start?</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Simply join the official WhatsApp recruitment group using the link on this page and send your 1-minute voice-note introduction to begin[span_37](start_span)[span_37](end_span).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark-900 border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-brand-500 flex items-center justify-center font-bold text-slate-950 text-sm">
+                    E
+                </div>
+                <div>
+                    <span class="text-base font-bold text-white">ECHOBEN GROUPS</span>
+                    <p class="text-[10px] text-slate-400">Empowering Skills. Building Careers. Changing Lives.[span_38](start_span)[span_38](end_span)</p>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500">
+                &copy; 2026 ECHOBEN Groups. All rights reserved. Confidential terms protected.
+            </p>
+            <div class="flex space-x-4 text-slate-400 text-sm">
+                <a href="https://chat.whatsapp.com/Ktb6hMSCgRv6f3uD1lzxBQ?s=cl&p=a&mlu=4&iam=2" target="_blank" class="hover:text-brand-400 transition"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR MOBILE MENU -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
