@@ -1,358 +1,1163 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECHOBEN Groups | Remote Talent Training & Global Job Placement Agency</title>
+    <meta name="description" content="ECHOBEN Groups - Remote work training, professional development and placement guidance in Cold Calling, Customer Support and Virtual Assistance.">
+    <title>ECHOBEN Groups | Train. Work. Grow.</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            400: '#4ade80',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            900: '#14532d',
-                        },
-                        dark: {
-                            900: '#090d16',
-                            800: '#111827',
-                            700: '#1f2937'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #07111f;
+            color: #ffffff;
+        }
+
+        :root {
+            --navy: #07111f;
+            --navy-light: #101e30;
+            --green: #10b981;
+            --gold: #eab308;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #10b981, #eab308);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #059669, #eab308);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        .section-padding {
+            padding: 90px 20px;
+        }
+
+        .announcement {
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+        }
+
+        .announcement-close {
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .announcement-close:hover {
+            color: #facc15;
+        }
+
+        .floating-middle {
+            position: fixed;
+            right: 18px;
+            top: 48%;
+            transform: translateY(-50%);
+            width: 245px;
+            z-index: 900;
+        }
+
+        .floating-bottom {
+            position: fixed;
+            right: 18px;
+            bottom: 20px;
+            z-index: 950;
+        }
+
+        .package-card {
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-7px);
+            border-color: #10b981;
+        }
+
+        .modal {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+        }
+
+        #mobile-menu {
+            transition: all 0.3s ease;
+        }
+
         .hero-pattern {
-            background-color: #090d16;
-            background-image: radial-gradient(rgba(34, 197, 94, 0.12) 1px, transparent 1px);
-            background-size: 32px 32px;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(16,185,129,.12), transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(234,179,8,.10), transparent 30%);
         }
-        .glow-gold {
-            box-shadow: 0 0 25px -5px rgba(234, 179, 8, 0.3);
-        }
-        .glow-emerald {
-            box-shadow: 0 0 30px -5px rgba(34, 197, 94, 0.25);
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        .floating-badge {
-            animation: float 4s ease-in-out infinite;
+
+        @media (max-width: 767px) {
+            .section-padding {
+                padding: 65px 18px;
+            }
+
+            .floating-middle {
+                top: auto;
+                bottom: 95px;
+                right: 12px;
+                transform: none;
+                width: 205px;
+            }
+
+            .floating-bottom {
+                right: 12px;
+                bottom: 12px;
+            }
+
+            .top-announcement {
+                padding: 10px 35px 10px 12px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
-<body class="bg-dark-900 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-slate-950">
 
-    <!-- FLOATING POP-UP NOTIFICATION BADGE (BATCH C ANNOUNCEMENT) -->
-    <div id="batch-popup" class="fixed bottom-6 right-6 z-50 max-w-sm bg-dark-800 border-2 border-amber-500/80 rounded-2xl p-4 shadow-2xl floating-badge hidden md:block">
-        <button onclick="closePopup()" class="absolute -top-2 -right-2 w-7 h-7 bg-slate-700 hover:bg-slate-600 text-white rounded-full flex items-center justify-center text-xs">
-            <i class="fa-solid fa-xmark"></i>
+<body>
+
+<!-- ===================================== -->
+<!-- TOP BATCH C ANNOUNCEMENT -->
+<!-- ===================================== -->
+
+<div id="top-announcement"
+     class="top-announcement announcement fixed top-0 left-0 w-full gradient-bg text-white text-center py-3 px-10 text-sm font-bold">
+
+    <span>
+        <i class="fas fa-bullhorn mr-2"></i>
+        BATCH C ENROLLMENT IS OPEN!
+        Secure your place with our ₦400,000 one-time payment package.
+    </span>
+
+    <a href="#packages" class="underline ml-2">
+        Explore Package <i class="fas fa-arrow-right"></i>
+    </a>
+
+    <button onclick="closeAnnouncement('top-announcement')"
+            class="announcement-close absolute right-4 top-3"
+            aria-label="Close announcement">
+        <i class="fas fa-times"></i>
+    </button>
+</div>
+
+
+<!-- ===================================== -->
+<!-- NAVIGATION -->
+<!-- ===================================== -->
+
+<header class="fixed top-10 left-0 w-full z-50 bg-[#07111f]/95 backdrop-blur-lg border-b border-white/10">
+
+    <div class="max-w-7xl mx-auto px-5 py-4 flex justify-between items-center">
+
+        <!-- Logo -->
+        <a href="#home" class="text-2xl font-black tracking-tight">
+            ECHO<span class="text-emerald-400">BEN</span>
+            <span class="text-yellow-400">GROUPS</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold">
+
+            <a href="#home" class="hover:text-emerald-400">Home</a>
+            <a href="#about" class="hover:text-emerald-400">About</a>
+            <a href="#mission" class="hover:text-emerald-400">Mission</a>
+            <a href="#objectives" class="hover:text-emerald-400">Objectives</a>
+            <a href="#tracks" class="hover:text-emerald-400">Training</a>
+            <a href="#packages" class="hover:text-emerald-400">Packages</a>
+            <a href="#contact" class="hover:text-emerald-400">Contact</a>
+
+            <a href="#packages"
+               class="gradient-bg px-5 py-3 rounded-full text-white font-bold">
+                Enroll Now
+            </a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-button"
+                class="md:hidden text-2xl text-white"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobile-menu">
+
+            <i id="menu-icon" class="fas fa-bars"></i>
         </button>
-        <div class="flex items-start space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl flex-shrink-0">
-                <i class="fa-solid fa-bullhorn"></i>
-            </div>
-            <div>
-                <span class="text-[10px] uppercase tracking-widest text-amber-400 font-bold block">Live Recruitment</span>
-                <h4 class="text-white font-bold text-sm">Batch C Open Now!</h4>
-                <p class="text-xs text-slate-300 mt-0.5">Earn $300 - $1,000 monthly with remote placement[span_0](start_span)[span_0](end_span).</p>
-                <button onclick="openFlyerModal()" class="mt-3 text-xs bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-3 py-1.5 rounded-lg transition">
-                    View Flyer & QR Code
-                </button>
-            </div>
-        </div>
+
     </div>
 
-    <!-- FLYER & QR CODE MODAL POP-UP -->
-    <div id="flyer-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="bg-dark-800 border border-slate-700 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeFlyerModal()" class="absolute top-4 right-4 w-9 h-9 bg-slate-700 hover:bg-slate-600 text-white rounded-full flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="text-center mb-6">
-                <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">ECHOBEN Groups Announcement</span>
-                <h3 class="text-2xl font-black text-white mt-1">Batch C Recruitment Portal</h3>
-                <p class="text-xs text-slate-400">Scan QR code or click to join the official WhatsApp channel[span_1](start_span)[span_1](end_span).</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
-                <div class="text-center bg-dark-900 p-3 rounded-2xl border border-slate-700">
-                    <img src="flyer.jpg" alt="Batch C Flyer" class="rounded-xl w-full max-h-[300px] object-cover mx-auto">
-                    <span class="text-[10px] text-slate-400 mt-2 block">Official Recruitment Flyer[span_2](start_span)[span_2](end_span)</span>
-                </div>
-                <div class="text-center bg-dark-900 p-4 rounded-2xl border border-slate-700">
-                    <div class="bg-white p-3 rounded-xl inline-block mb-3">
-                        <img src="qrcode.png" alt="WhatsApp QR Code" class="w-36 h-36 mx-auto rounded-lg">
-                    </div>
-                    <a href="https://chat.whatsapp.com/Ktb6hMSCgRv6f3uD1lzxBQ?s=cl&p=a&mlu=4&iam=2" target="_blank" class="block w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs transition">
-                        <i class="fa-brands fa-whatsapp mr-1"></i> Join WhatsApp Group[span_3](start_span)[span_3](end_span)
-                    </a>
-                </div>
-            </div>
-        </div>
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu"
+         class="hidden md:hidden bg-[#101e30] border-t border-white/10 px-6 py-5">
+
+        <nav class="flex flex-col gap-5 font-semibold">
+
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">About Agency</a>
+            <a href="#mission" class="mobile-link">Mission & Vision</a>
+            <a href="#objectives" class="mobile-link">Objectives</a>
+            <a href="#tracks" class="mobile-link">Training Tracks</a>
+            <a href="#packages" class="mobile-link">Packages</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+
+            <a href="#packages"
+               class="mobile-link gradient-bg text-center py-3 rounded-lg font-bold">
+                Enroll for Batch C
+            </a>
+
+        </nav>
     </div>
 
-    <!-- NAVIGATION -->
-    <nav class="sticky top-0 z-40 bg-dark-900/90 backdrop-blur-md border-b border-slate-800/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-brand-500 flex items-center justify-center font-black text-slate-950 text-2xl shadow-lg">
-                    E
-                </div>
-                <div>
-                    <span class="text-xl font-extrabold tracking-tight text-white">ECHOBEN</span>
-                    <span class="text-xl font-light text-brand-400">GROUPS</span>
-                    <div class="text-[9px] uppercase tracking-widest text-slate-400 font-semibold">Empowering Skills & Careers</div>
-                </div>
-            </div>
+</header>
 
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="#about" class="hover:text-brand-400 transition">About Agency</a>
-                <a href="#mission" class="hover:text-brand-400 transition">Mission & Vision</a>
-                <a href="#objectives" class="hover:text-brand-400 transition">Objectives</a>
-                <a href="#tracks" class="hover:text-brand-400 transition">Training Tracks</a>
-                <a href="#packages" class="hover:text-brand-400 transition">Enrollment Tiers</a>
-            </div>
 
-            <div class="flex items-center space-x-4">
-                <button onclick="openFlyerModal()" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold hover:bg-amber-500/30 transition text-xs">
-                    <i class="fa-solid fa-bullhorn mr-2"></i> Batch C Announcement
-                </button>
-            </div>
+<!-- ===================================== -->
+<!-- HERO SECTION -->
+<!-- ===================================== -->
+
+<section id="home"
+         class="hero-pattern min-h-screen flex items-center justify-center text-center px-6 pt-40 pb-20">
+
+    <div class="max-w-4xl mx-auto">
+
+        <div class="inline-block glass px-5 py-2 rounded-full text-emerald-400 text-sm font-bold mb-8">
+            TRAINING • PROFESSIONAL DEVELOPMENT • OPPORTUNITY
         </div>
-    </nav>
 
-    <!-- HERO SECTION (AGENCY FOCUSED) -->
-    <section class="hero-pattern relative overflow-hidden py-24 lg:py-32 border-b border-slate-800/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-4xl">
-            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-brand-500/30 text-brand-400 text-xs font-semibold mb-6 shadow-inner">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>Global Remote Talent Agency & Training Institute</span>
+        <h1 class="text-4xl md:text-6xl font-black leading-tight mb-7">
+            Building Skills.
+            <span class="gradient-text">Creating Opportunities.</span>
+            Empowering People.
+        </h1>
+
+        <p class="text-gray-300 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-10">
+            ECHOBEN Groups prepares individuals for opportunities in the
+            remote-work industry through practical training, professional
+            development and placement guidance.
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+
+            <a href="#packages"
+               class="gradient-bg px-8 py-4 rounded-full font-bold text-white">
+                Explore Training Packages
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+
+            <a href="#tracks"
+               class="border border-emerald-400 px-8 py-4 rounded-full font-bold hover:bg-emerald-500/10">
+                Explore Training Tracks
+            </a>
+
+        </div>
+
+        <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-5">
+
+            <div class="glass p-6 rounded-2xl">
+                <i class="fas fa-phone-volume text-3xl text-emerald-400 mb-4"></i>
+                <h3 class="font-bold">Cold Calling</h3>
             </div>
-            <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight mb-6">
-                Empowering Skills. Building Careers. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-emerald-300 to-amber-400">Changing Lives.</span>
-            </h1>
-            <p class="text-lg sm:text-xl text-slate-300 mb-10 font-normal leading-relaxed max-w-3xl mx-auto">
-                ECHOBEN Groups is a premier remote operations training and global placement agency. We bridge the gap between high-performing African operators and international enterprises requiring elite cold-calling, support, and administrative talent.
+
+            <div class="glass p-6 rounded-2xl">
+                <i class="fas fa-headset text-3xl text-yellow-400 mb-4"></i>
+                <h3 class="font-bold">Customer Support</h3>
+            </div>
+
+            <div class="glass p-6 rounded-2xl">
+                <i class="fas fa-laptop-house text-3xl text-emerald-400 mb-4"></i>
+                <h3 class="font-bold">Virtual Assistance</h3>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ===================================== -->
+<!-- ABOUT AGENCY -->
+<!-- ===================================== -->
+
+<section id="about" class="section-padding bg-[#0b1727]">
+
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+
+        <div>
+            <p class="text-emerald-400 uppercase tracking-widest font-bold text-sm mb-4">
+                Who We Are
             </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#mission" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-500 text-slate-950 font-extrabold hover:bg-brand-400 transition glow-emerald text-base text-center">
-                    Explore Our Mission & Goals <i class="fa-solid fa-arrow-down ml-2"></i>
+
+            <h2 class="text-3xl md:text-4xl font-black mb-6">
+                About <span class="gradient-text">ECHOBEN Groups</span>
+            </h2>
+
+            <p class="text-gray-300 leading-8 mb-5">
+                ECHOBEN Groups is a remote-work training and professional
+                development agency focused on equipping individuals with
+                practical skills for today's digital and global workplace.
+            </p>
+
+            <p class="text-gray-300 leading-8 mb-5">
+                We provide structured learning and practical preparation
+                in areas such as cold calling, customer support and
+                virtual assistance.
+            </p>
+
+            <p class="text-gray-300 leading-8">
+                Our approach combines training, practical assignments,
+                professional readiness and placement guidance to help
+                participants prepare for remote work opportunities.
+            </p>
+        </div>
+
+        <div class="glass rounded-3xl p-8 md:p-10">
+
+            <div class="mb-8">
+                <i class="fas fa-graduation-cap text-4xl text-emerald-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Practical Training</h3>
+                <p class="text-gray-400">
+                    Develop relevant skills through guided learning
+                    and practical exercises.
+                </p>
+            </div>
+
+            <div class="mb-8">
+                <i class="fas fa-briefcase text-4xl text-yellow-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Work Readiness</h3>
+                <p class="text-gray-400">
+                    Prepare for professional expectations and
+                    real-world work environments.
+                </p>
+            </div>
+
+            <div>
+                <i class="fas fa-globe text-4xl text-emerald-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Global Opportunities</h3>
+                <p class="text-gray-400">
+                    Receive guidance in navigating remote work
+                    opportunities and applications.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ===================================== -->
+<!-- MISSION AND VISION -->
+<!-- ===================================== -->
+
+<section id="mission" class="section-padding">
+
+    <div class="max-w-6xl mx-auto">
+
+        <div class="text-center mb-14">
+            <p class="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-3">
+                Our Foundation
+            </p>
+
+            <h2 class="text-3xl md:text-4xl font-black">
+                Our Mission & <span class="gradient-text">Vision</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <div class="glass p-9 rounded-3xl">
+                <i class="fas fa-bullseye text-4xl text-emerald-400 mb-6"></i>
+
+                <h3 class="text-2xl font-bold mb-5">Our Mission</h3>
+
+                <p class="text-gray-300 leading-8">
+                    To equip individuals with practical, market-relevant
+                    skills and professional confidence that prepare them
+                    for remote work and digital employment opportunities.
+                </p>
+            </div>
+
+            <div class="glass p-9 rounded-3xl">
+                <i class="fas fa-eye text-4xl text-yellow-400 mb-6"></i>
+
+                <h3 class="text-2xl font-bold mb-5">Our Vision</h3>
+
+                <p class="text-gray-300 leading-8">
+                    To become a trusted training and talent-development
+                    platform that connects skilled individuals with
+                    opportunities in the evolving global workforce.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================================== -->
+<!-- OBJECTIVES -->
+<!-- ===================================== -->
+
+<section id="objectives" class="section-padding bg-[#0b1727]">
+
+    <div class="max-w-6xl mx-auto">
+
+        <div class="text-center mb-14">
+
+            <p class="text-emerald-400 uppercase tracking-widest font-bold text-sm mb-3">
+                What We Strive For
+            </p>
+
+            <h2 class="text-3xl md:text-4xl font-black">
+                Our <span class="gradient-text">Objectives</span>
+            </h2>
+
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="glass p-7 rounded-2xl">
+                <i class="fas fa-lightbulb text-3xl text-emerald-400 mb-5"></i>
+                <h3 class="font-bold text-xl mb-3">Skill Development</h3>
+                <p class="text-gray-400 leading-7">
+                    Deliver practical training that develops relevant
+                    workplace and digital skills.
+                </p>
+            </div>
+
+            <div class="glass p-7 rounded-2xl">
+                <i class="fas fa-users text-3xl text-yellow-400 mb-5"></i>
+                <h3 class="font-bold text-xl mb-3">Talent Development</h3>
+                <p class="text-gray-400 leading-7">
+                    Help individuals build confidence, competence
+                    and professional discipline.
+                </p>
+            </div>
+
+            <div class="glass p-7 rounded-2xl">
+                <i class="fas fa-laptop text-3xl text-emerald-400 mb-5"></i>
+                <h3 class="font-bold text-xl mb-3">Remote Work Readiness</h3>
+                <p class="text-gray-400 leading-7">
+                    Prepare participants for the expectations
+                    of remote and digital workplaces.
+                </p>
+            </div>
+
+            <div class="glass p-7 rounded-2xl">
+                <i class="fas fa-comments text-3xl text-yellow-400 mb-5"></i>
+                <h3 class="font-bold text-xl mb-3">Communication</h3>
+                <p class="text-gray-400 leading-7">
+                    Improve communication, customer engagement
+                    and professional interaction.
+                </p>
+            </div>
+
+            <div class="glass p-7 rounded-2xl">
+                <i class="fas fa-briefcase text-3xl text-emerald-400 mb-5"></i>
+                <h3 class="font-bold text-xl mb-3">Career Preparation</h3>
+                <p class="text-gray-400 leading-7">
+                    Provide guidance to help participants navigate
+                    job applications and placement opportunities.
+                </p>
+            </div>
+
+            <div class="glass p-7 rounded-2xl">
+                <i class="fas fa-chart-line text-3xl text-yellow-400 mb-5"></i>
+                <h3 class="font-bold text-xl mb-3">Professional Growth</h3>
+                <p class="text-gray-400 leading-7">
+                    Encourage continuous improvement and
+                    long-term professional development.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================================== -->
+<!-- TRAINING TRACKS -->
+<!-- ===================================== -->
+
+<section id="tracks" class="section-padding">
+
+    <div class="max-w-6xl mx-auto">
+
+        <div class="text-center mb-14">
+
+            <p class="text-emerald-400 uppercase tracking-widest font-bold text-sm mb-3">
+                What You Can Learn
+            </p>
+
+            <h2 class="text-3xl md:text-4xl font-black">
+                Our Training <span class="gradient-text">Tracks</span>
+            </h2>
+
+            <p class="text-gray-400 mt-5 max-w-2xl mx-auto">
+                Choose a professional training path and develop
+                the skills needed to compete in the remote-work market.
+            </p>
+
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-7">
+
+            <!-- Cold Calling -->
+            <div class="glass p-8 rounded-3xl">
+
+                <i class="fas fa-phone-volume text-4xl text-emerald-400 mb-6"></i>
+
+                <h3 class="text-2xl font-bold mb-4">Cold Calling</h3>
+
+                <p class="text-gray-400 leading-7 mb-6">
+                    Learn how to approach prospects, communicate
+                    confidently, handle objections and engage
+                    potential customers professionally.
+                </p>
+
+                <ul class="text-sm text-gray-300 space-y-3">
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Prospect research</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Call scripts and delivery</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Objection handling</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Appointment setting</li>
+                </ul>
+
+            </div>
+
+            <!-- Customer Support -->
+            <div class="glass p-8 rounded-3xl">
+
+                <i class="fas fa-headset text-4xl text-yellow-400 mb-6"></i>
+
+                <h3 class="text-2xl font-bold mb-4">Customer Support</h3>
+
+                <p class="text-gray-400 leading-7 mb-6">
+                    Develop the communication and problem-solving
+                    skills required to support customers across
+                    different service channels.
+                </p>
+
+                <ul class="text-sm text-gray-300 space-y-3">
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Customer communication</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Email and chat support</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Complaint resolution</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Customer relationship management</li>
+                </ul>
+
+            </div>
+
+            <!-- Virtual Assistant -->
+            <div class="glass p-8 rounded-3xl">
+
+                <i class="fas fa-laptop-house text-4xl text-emerald-400 mb-6"></i>
+
+                <h3 class="text-2xl font-bold mb-4">Virtual Assistant</h3>
+
+                <p class="text-gray-400 leading-7 mb-6">
+                    Build administrative, organisational and
+                    digital skills to support businesses and
+                    professionals remotely.
+                </p>
+
+                <ul class="text-sm text-gray-300 space-y-3">
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Calendar management</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Email management</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Online research</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-2"></i> Administrative support</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ===================================== -->
+<!-- PACKAGES -->
+<!-- ===================================== -->
+
+<section id="packages" class="section-padding bg-[#0b1727]">
+
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-14">
+
+            <p class="text-emerald-400 uppercase tracking-widest font-bold text-sm mb-3">
+                Batch C Enrollment
+            </p>
+
+            <h2 class="text-3xl md:text-5xl font-black">
+                Choose Your <span class="gradient-text">Package</span>
+            </h2>
+
+            <p class="text-gray-400 mt-5 max-w-2xl mx-auto">
+                Select the enrollment option that works best for you.
+                Each package provides access to our training programme
+                and professional development pathway.
+            </p>
+
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-7 items-stretch">
+
+            <!-- OPTION A -->
+            <div class="package-card glass p-8 rounded-3xl flex flex-col">
+
+                <div class="mb-6">
+                    <span class="text-emerald-400 font-bold text-sm uppercase">
+                        Option A
+                    </span>
+
+                    <h3 class="text-2xl font-black mt-3">Standard</h3>
+
+                    <p class="text-gray-400 text-sm mt-2">
+                        Flexible entry package
+                    </p>
+                </div>
+
+                <div class="text-4xl font-black mb-2">
+                    ₦50,000
+                </div>
+
+                <p class="text-gray-400 text-sm mb-7">
+                    Payable upon enrollment
+                </p>
+
+                <div class="border-t border-white/10 pt-6 mb-7 flex-grow">
+
+                    <p class="text-gray-300 mb-4">
+                        <span class="text-emerald-400 font-bold">30%</span>
+                        of monthly gross earnings
+                    </p>
+
+                    <p class="text-gray-400 text-sm mb-4">
+                        Tenure: 6 consecutive months.
+                    </p>
+
+                    <p class="text-gray-400 text-sm mb-4">
+                        Remittance is due by the 7th of each
+                        following month.
+                    </p>
+
+                    <ul class="text-sm text-gray-300 space-y-3 mt-6">
+                        <li><i class="fas fa-check text-emerald-400 mr-2"></i> Standard curriculum</li>
+                        <li><i class="fas fa-check text-emerald-400 mr-2"></i> Practical training</li>
+                        <li><i class="fas fa-check text-emerald-400 mr-2"></i> Placement guidance</li>
+                    </ul>
+
+                </div>
+
+                <a href="#contact"
+                   class="block text-center border border-emerald-400 py-4 rounded-xl font-bold hover:bg-emerald-500/10">
+                    Enquire About Option A
                 </a>
-                <button onclick="openFlyerModal()" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 font-bold hover:bg-slate-700 transition text-base text-center flex items-center justify-center">
-                    <i class="fa-solid fa-bullhorn mr-2 text-amber-400"></i> View Active Batch C Flyer[span_4](start_span)[span_4](end_span)
-                </button>
+
             </div>
+
+
+            <!-- OPTION B -->
+            <div class="package-card glass p-8 rounded-3xl flex flex-col">
+
+                <div class="mb-6">
+                    <span class="text-yellow-400 font-bold text-sm uppercase">
+                        Option B
+                    </span>
+
+                    <h3 class="text-2xl font-black mt-3">Premium</h3>
+
+                    <p class="text-gray-400 text-sm mt-2">
+                        Enhanced support package
+                    </p>
+                </div>
+
+                <div class="text-4xl font-black mb-2">
+                    ₦100,000
+                </div>
+
+                <p class="text-gray-400 text-sm mb-7">
+                    Payable upon enrollment
+                </p>
+
+                <div class="border-t border-white/10 pt-6 mb-7 flex-grow">
+
+                    <p class="text-gray-300 mb-4">
+                        <span class="text-yellow-400 font-bold">10%</span>
+                        of monthly gross earnings
+                    </p>
+
+                    <p class="text-gray-400 text-sm mb-4">
+                        Tenure: 6 consecutive months.
+                    </p>
+
+                    <p class="text-gray-400 text-sm mb-4">
+                        Remittance is due by the 7th of each
+                        following month.
+                    </p>
+
+                    <ul class="text-sm text-gray-300 space-y-3 mt-6">
+                        <li><i class="fas fa-check text-emerald-400 mr-2"></i> Standard curriculum</li>
+                        <li><i class="fas fa-check text-emerald-400 mr-2"></i> Practical training</li>
+                        <li><i class="fas fa-check text-emerald-400 mr-2"></i> Priority mentorship and support</li>
+                        <li><i class="fas fa-check text-emerald-400 mr-2"></i> Placement guidance</li>
+                    </ul>
+
+                </div>
+
+                <a href="#contact"
+                   class="block text-center border border-yellow-400 py-4 rounded-xl font-bold hover:bg-yellow-500/10">
+                    Enquire About Option B
+                </a>
+
+            </div>
+
+
+            <!-- OPTION C -->
+            <div class="package-card relative gradient-bg p-8 rounded-3xl flex flex-col text-white">
+
+                <div class="absolute -top-4 right-6 bg-white text-emerald-700 text-xs font-black px-4 py-2 rounded-full">
+                    ONE-TIME PAYMENT
+                </div>
+
+                <div class="mb-6">
+                    <span class="font-bold text-sm uppercase text-white/80">
+                        Option C
+                    </span>
+
+                    <h3 class="text-2xl font-black mt-3">Complete Package</h3>
+
+                    <p class="text-white/80 text-sm mt-2">
+                        Full payment option
+                    </p>
+                </div>
+
+                <div class="text-4xl font-black mb-2">
+                    ₦400,000
+                </div>
+
+                <p class="text-white/80 text-sm mb-7">
+                    One-time upfront payment
+                </p>
+
+                <div class="border-t border-white/30 pt-6 mb-7 flex-grow">
+
+                    <p class="text-2xl font-black mb-3">
+                        0% Royalty
+                    </p>
+
+                    <p class="text-white/90 text-sm mb-5">
+                        No monthly earnings deductions.
+                        No subsequent remittances.
+                    </p>
+
+                    <ul class="text-sm space-y-4">
+                        <li><i class="fas fa-check-circle mr-2"></i> Complete training programme</li>
+                        <li><i class="fas fa-check-circle mr-2"></i> Practical training</li>
+                        <li><i class="fas fa-check-circle mr-2"></i> Job placement support</li>
+                        <li><i class="fas fa-check-circle mr-2"></i> No monthly royalty payments</li>
+                        <li><i class="fas fa-check-circle mr-2"></i> No further remittances</li>
+                    </ul>
+
+                </div>
+
+                <a href="#contact"
+                   class="block text-center bg-white text-emerald-700 py-4 rounded-xl font-black hover:bg-gray-100">
+                    Enquire About Option C
+                </a>
+
+            </div>
+
         </div>
-    </section>
 
-    <!-- MISSION, VISION & CORE VALUES -->
-    <section id="mission" class="py-24 bg-dark-800/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-brand-400 font-semibold text-sm uppercase tracking-widest">Our Foundation</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-white mt-2 mb-4">Mission, Vision & Core Values</h2>
-                <p class="text-slate-300 text-base">The guiding principles behind everything we build at ECHOBEN Groups.</p>
-            </div>
+        <p class="text-gray-500 text-xs text-center mt-8">
+            Please review the applicable package terms before enrollment.
+        </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                <!-- Mission -->
-                <div class="bg-dark-900 border border-slate-800 rounded-3xl p-8 sm:p-10">
-                    <div class="w-14 h-14 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-compass"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Our Mission</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        To equip ambitious professionals with rigorous, high-income remote execution skills and connect global companies with dependable, disciplined talent that drives revenue and retention.
-                    </p>
-                </div>
+    </div>
+</section>
 
-                <!-- Vision -->
-                <div class="bg-dark-900 border border-slate-800 rounded-3xl p-8 sm:p-10">
-                    <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-eye"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Our Vision</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        To be Africa’s leading remote workforce incubator, transforming localized economic potential into thriving global careers without borders.
-                    </p>
-                </div>
-            </div>
+
+<!-- ===================================== -->
+<!-- BATCH C FLYER AND QR CODE -->
+<!-- ===================================== -->
+
+<section class="section-padding">
+
+    <div class="max-w-5xl mx-auto glass rounded-3xl p-8 md:p-12 text-center">
+
+        <p class="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-4">
+            Join Our Next Training Cohort
+        </p>
+
+        <h2 class="text-3xl md:text-4xl font-black mb-5">
+            Ready to Begin Your <span class="gradient-text">Remote Work Journey?</span>
+        </h2>
+
+        <p class="text-gray-400 max-w-2xl mx-auto leading-7 mb-8">
+            Take the next step towards developing your professional
+            skills. Connect with our team for Batch C enrollment
+            information and programme details.
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+
+            <button onclick="openFlyerModal()"
+                    class="gradient-bg px-8 py-4 rounded-full font-bold">
+                <i class="fas fa-image mr-2"></i>
+                View Batch C Flyer
+            </button>
+
+            <a href="https://chat.whatsapp.com/Ktb6hMSCgRv6f3uD1lzxBQ?s=cl&p=a&mlu=4&iam=2"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="border border-emerald-400 px-8 py-4 rounded-full font-bold">
+                <i class="fab fa-whatsapp mr-2"></i>
+                Join WhatsApp Group
+            </a>
+
         </div>
-    </section>
 
-    <!-- AGENCY OBJECTIVES & GOALS -->
-    <section id="objectives" class="py-24 bg-dark-900 border-y border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-amber-400 font-semibold text-sm uppercase tracking-widest">Strategic Blueprint</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-white mt-2 mb-4">Agency Objectives & Goals</h2>
-                <p class="text-slate-300 text-base">How we measure our impact and maintain world-class training standards.</p>
-            </div>
+        <div class="mt-10">
+            <img src="qrcode.png"
+                 alt="ECHOBEN Groups WhatsApp QR Code"
+                 class="w-40 h-40 mx-auto rounded-xl bg-white p-2">
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-dark-800 border border-slate-700 rounded-2xl p-8">
-                    <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">Objective 01</div>
-                    <h3 class="text-xl font-bold text-white mb-3">Rigorous Skill Incubation</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Deliver intensive simulation training in cold calling, objection handling, and digital workflows to eliminate beginner friction.
-                    </p>
-                </div>
-
-                <div class="bg-dark-800 border border-slate-700 rounded-2xl p-8">
-                    <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">Objective 02</div>
-                    <h3 class="text-xl font-bold text-white mb-3">Global Market Placement</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Secure stable international remote roles for qualified graduates, allowing them to earn in strong foreign currencies ($300 - $1,000+ monthly)[span_5](start_span)[span_5](end_span).
-                    </p>
-                </div>
-
-                <div class="bg-dark-800 border border-slate-700 rounded-2xl p-8">
-                    <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">Objective 03</div>
-                    <h3 class="text-xl font-bold text-white mb-3">Accountability & Standards</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Foster a strict metric-driven execution culture centered around attendance, performance tracking, and professional ethics.
-                    </p>
-                </div>
-            </div>
+            <p class="text-gray-500 text-sm mt-3">
+                Scan to connect with ECHOBEN Groups.
+            </p>
         </div>
-    </section>
 
-    <!-- TRAINING TRACKS -->
-    <section id="tracks" class="py-24 bg-dark-800/40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-brand-400 font-semibold text-sm uppercase tracking-widest">Core Disciplines</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-white mt-2 mb-4">Specialized Training Tracks</h2>
-                <p class="text-slate-300 text-base">Professional functions where our trainees excel.</p>
+    </div>
+</section>
+
+
+<!-- ===================================== -->
+<!-- CONTACT SECTION -->
+<!-- ===================================== -->
+
+<section id="contact" class="section-padding bg-[#0b1727]">
+
+    <div class="max-w-4xl mx-auto text-center">
+
+        <p class="text-emerald-400 uppercase tracking-widest font-bold text-sm mb-4">
+            Get In Touch
+        </p>
+
+        <h2 class="text-3xl md:text-5xl font-black mb-6">
+            Let's Start a <span class="gradient-text">Conversation</span>
+        </h2>
+
+        <p class="text-gray-400 leading-8 max-w-2xl mx-auto mb-9">
+            Interested in our training programmes or Batch C enrollment?
+            Have questions about the packages or training tracks?
+            Connect with our team through WhatsApp.
+        </p>
+
+        <a href="https://chat.whatsapp.com/Ktb6hMSCgRv6f3uD1lzxBQ?s=cl&p=a&mlu=4&iam=2"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="inline-flex items-center gap-3 gradient-bg px-9 py-5 rounded-full font-bold text-lg">
+
+            <i class="fab fa-whatsapp text-2xl"></i>
+            Contact Us on WhatsApp
+
+        </a>
+
+        <p class="text-gray-500 text-sm mt-6">
+            We look forward to hearing from you.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================== -->
+<!-- FOOTER -->
+<!-- ===================================== -->
+
+<footer class="bg-[#050c16] border-t border-white/10 px-6 py-12">
+
+    <div class="max-w-7xl mx-auto">
+
+        <div class="grid md:grid-cols-3 gap-10 mb-10">
+
+            <div>
+                <h2 class="text-2xl font-black mb-4">
+                    ECHO<span class="text-emerald-400">BEN</span>
+                    <span class="text-yellow-400">GROUPS</span>
+                </h2>
+
+                <p class="text-gray-400 leading-7 text-sm">
+                    Building skills, creating opportunities and
+                    preparing individuals for the evolving
+                    remote-work industry.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-dark-900 border border-slate-800 rounded-2xl p-8">
-                    <div class="w-14 h-14 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-phone-volume"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Cold Calling</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Outbound prospecting, script execution, gatekeeper navigation, and booking qualified meetings.
-                    </p>
-                </div>
-                <div class="bg-dark-900 border border-slate-800 rounded-2xl p-8">
-                    <div class="w-14 h-14 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-headset"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Customer Support</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Client care, ticketing system management, dispute resolution, and retention safeguarding.
-                    </p>
-                </div>
-                <div class="bg-dark-900 border border-slate-800 rounded-2xl p-8">
-                    <div class="w-14 h-14 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-2xl mb-6">
-                        <i class="fa-solid fa-laptop-code"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Virtual Assistant</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Executive calendar management, inbox triage, workflow administration, and cloud productivity.
-                    </p>
-                </div>
+            <div>
+                <h3 class="font-bold text-lg mb-5">Quick Links</h3>
+
+                <ul class="space-y-3 text-gray-400 text-sm">
+                    <li><a href="#about" class="hover:text-emerald-400">About Us</a></li>
+                    <li><a href="#mission" class="hover:text-emerald-400">Mission & Vision</a></li>
+                    <li><a href="#tracks" class="hover:text-emerald-400">Training Tracks</a></li>
+                    <li><a href="#packages" class="hover:text-emerald-400">Enrollment Packages</a></li>
+                    <li><a href="#contact" class="hover:text-emerald-400">Contact</a></li>
+                </ul>
             </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-5">Connect With Us</h3>
+
+                <a href="https://chat.whatsapp.com/Ktb6hMSCgRv6f3uD1lzxBQ?s=cl&p=a&mlu=4&iam=2"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="inline-flex items-center gap-3 text-emerald-400 hover:text-emerald-300">
+
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    Join Our WhatsApp Community
+
+                </a>
+            </div>
+
         </div>
-    </section>
 
-    <!-- ENROLLMENT PACKAGES (BATCH C ADMISSION) -->
-    <section id="packages" class="py-24 bg-dark-900 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-amber-400 font-semibold text-sm uppercase tracking-widest">Active Recruitment</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-white mt-2 mb-4">Batch C Enrollment Tiers</h2>
-                <p class="text-slate-300 text-base">Select your financial partnership pathway for training and placement[span_6](start_span)[span_6](end_span).</p>
-            </div>
+        <div class="border-t border-white/10 pt-7 text-center text-gray-500 text-sm">
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Option A -->
-                <div class="bg-dark-800 border border-slate-700 rounded-3xl p-8 flex flex-col justify-between">
-                    <div>
-                        <div class="inline-block px-3 py-1 rounded-full bg-slate-700 text-slate-200 text-xs font-bold uppercase tracking-wider mb-4">Option A • Standard[span_7](start_span)[span_7](end_span)</div>
-                        <div class="text-4xl font-black text-white mb-2">₦50,000 <span class="text-xs font-normal text-slate-400">/ enrollment</span>[span_8](start_span)[span_8](end_span)</div>
-                        <p class="text-slate-400 text-sm mb-6 pb-6 border-b border-slate-700">Structured training with flexible income sharing upon placement.</p>
-                        <ul class="space-y-3 mb-8 text-sm text-slate-300">
-                            <li><i class="fa-solid fa-check text-brand-400 mr-2"></i> <strong>30% monthly gross earnings</strong> (6 mos tenure)[span_9](start_span)[span_9](end_span)</li>
-                            <li><i class="fa-solid fa-check text-brand-400 mr-2"></i> Remit by the 7th of each month[span_10](start_span)[span_10](end_span)</li>
-                        </ul>
-                    </div>
-                    <button onclick="openFlyerModal()" class="block w-full py-3.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-center text-sm transition">
-                        Join via Batch C Flyer[span_11](start_span)[span_11](end_span)
-                    </button>
-                </div>
+            <p>
+                &copy; <span id="current-year"></span> ECHOBEN Groups.
+                All rights reserved.
+            </p>
 
-                <!-- Option B -->
-                <div class="bg-gradient-to-b from-dark-800 to-slate-900 border-2 border-brand-500 rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative glow-emerald">
-                    <div class="absolute -top-4 right-8 bg-brand-500 text-slate-950 font-extrabold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider">Most Popular[span_12](start_span)[span_12](end_span)</div>
-                    <div>
-                        <div class="inline-block px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider mb-4">Option B • Standard Plus[span_13](start_span)[span_13](end_span)</div>
-                        <div class="text-4xl font-black text-white mb-2">₦100,000 <span class="text-xs font-normal text-slate-400">/ enrollment</span>[span_14](start_span)[span_14](end_span)</div>
-                        <p class="text-slate-400 text-sm mb-6 pb-6 border-b border-slate-700">Balanced upfront investment with lower revenue share.</p>
-                        <ul class="space-y-3 mb-8 text-sm text-slate-300">
-                            <li><i class="fa-solid fa-check text-brand-400 mr-2"></i> <strong>10% monthly gross earnings</strong> (6 mos tenure)[span_15](start_span)[span_15](end_span)</li>
-                            <li><i class="fa-solid fa-check text-brand-400 mr-2"></i> Priority mentorship & support</li>
-                        </ul>
-                    </div>
-                    <button onclick="openFlyerModal()" class="block w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-black text-center text-sm transition shadow-lg">
-                        Join via Batch C Flyer[span_16](start_span)[span_16](end_span)
-                    </button>
-                </div>
+            <p class="mt-2">
+                Train. Work. Grow.
+            </p>
 
-                <!-- Option C -->
-                <div class="bg-dark-800 border border-slate-700 rounded-3xl p-8 flex flex-col justify-between">
-                    <div>
-                        <div class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">Option C • Premium[span_17](start_span)[span_17](end_span)</div>
-                        <div class="text-4xl font-black text-white mb-2">₦400,000 <span class="text-xs font-normal text-slate-400">/ one-time</span>[span_18](start_span)[span_18](end_span)</div>
-                        <p class="text-slate-400 text-sm mb-6 pb-6 border-b border-slate-700">Complete independence with zero ongoing revenue deductions[span_19](start_span)[span_19](end_span).</p>
-                        <ul class="space-y-3 mb-8 text-sm text-slate-300">
-                            <li><i class="fa-solid fa-check text-amber-400 mr-2"></i> <strong>0% post-employment royalty</strong> (Keep 100%)[span_20](start_span)[span_20](end_span)</li>
-                            <li><i class="fa-solid fa-check text-amber-400 mr-2"></i> No monthly remittances required[span_21](start_span)[span_21](end_span)</li>
-                        </ul>
-                    </div>
-                    <button onclick="openFlyerModal()" class="block w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-center text-sm transition glow-gold">
-                        Join via Batch C Flyer[span_22](start_span)[span_22](end_span)
-                    </button>
-                </div>
-            </div>
         </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-dark-900 border-t border-slate-800 py-12 text-center">
-        <p class="text-xs text-slate-500">&copy; 2026 ECHOBEN Groups. Empowering Skills. Building Careers. Changing Lives[span_23](start_span)[span_23](end_span).</p>
-    </footer>
+    </div>
 
-    <!-- INTERACTIVE JAVASCRIPT FOR MODAL & POPUP -->
-    <script>
-        function openFlyerModal() {
-            document.getElementById('flyer-modal').classList.remove('hidden');
+</footer>
+
+
+<!-- ===================================== -->
+<!-- MIDDLE FLOATING BATCH C ANNOUNCEMENT -->
+<!-- ===================================== -->
+
+<div id="middle-announcement"
+     class="floating-middle announcement glass rounded-2xl p-5 border border-emerald-400/50">
+
+    <button onclick="closeAnnouncement('middle-announcement')"
+            class="announcement-close absolute top-3 right-3 text-gray-400"
+            aria-label="Close announcement">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div class="text-emerald-400 text-xs font-black uppercase mb-2">
+        <i class="fas fa-bullhorn mr-1"></i>
+        Batch C Announcement
+    </div>
+
+    <h3 class="font-black text-lg mb-2">
+        Enrollment Is Open!
+    </h3>
+
+    <p class="text-gray-300 text-xs leading-5 mb-4">
+        Choose our ₦400,000 one-time payment package and
+        enjoy training with 0% monthly royalty.
+    </p>
+
+    <a href="#packages"
+       class="block text-center gradient-bg py-3 rounded-lg text-sm font-bold">
+        View Package
+        <i class="fas fa-arrow-right ml-1"></i>
+    </a>
+
+</div>
+
+
+<!-- ===================================== -->
+<!-- BOTTOM-CORNER FLOATING ANNOUNCEMENT -->
+<!-- ===================================== -->
+
+<div id="bottom-announcement" class="floating-bottom announcement">
+
+    <div class="flex items-center gap-3 bg-[#102337] border border-emerald-400/50 rounded-full p-2 pr-4 shadow-xl">
+
+        <button onclick="closeAnnouncement('bottom-announcement')"
+                class="announcement-close text-gray-400 px-2"
+                aria-label="Close announcement">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <a href="https://chat.whatsapp.com/Ktb6hMSCgRv6f3uD1lzxBQ?s=cl&p=a&mlu=4&iam=2"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="flex items-center gap-2 text-sm font-bold text-white">
+
+            <span class="bg-emerald-500 w-9 h-9 rounded-full flex items-center justify-center">
+                <i class="fab fa-whatsapp text-lg"></i>
+            </span>
+
+            <span>Join Batch C</span>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================== -->
+<!-- FLYER MODAL -->
+<!-- ===================================== -->
+
+<div id="flyer-modal"
+     class="modal fixed inset-0 z-[2000] hidden items-center justify-center p-4">
+
+    <div class="relative max-w-xl w-full bg-[#101e30] rounded-2xl p-4">
+
+        <button onclick="closeFlyerModal()"
+                class="absolute -top-4 -right-3 bg-red-500 w-10 h-10 rounded-full text-white text-xl"
+                aria-label="Close flyer">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <img src="flyer.jpg"
+             alt="ECHOBEN Groups Batch C Recruitment Flyer"
+             class="w-full rounded-xl">
+
+        <div class="text-center mt-5">
+
+            <a href="https://chat.whatsapp.com/Ktb6hMSCgRv6f3uD1lzxBQ?s=cl&p=a&mlu=4&iam=2"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="inline-block gradient-bg px-7 py-3 rounded-full font-bold">
+
+                <i class="fab fa-whatsapp mr-2"></i>
+                Join Batch C
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================== -->
+
+<script>
+
+    // Current year
+    document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+
+    // Close floating announcements
+    function closeAnnouncement(id) {
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.style.display = "none";
         }
-        function closeFlyerModal() {
-            document.getElementById('flyer-modal').classList.add('hidden');
+    }
+
+
+    // Mobile navigation
+    const menuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuIcon = document.getElementById("menu-icon");
+
+    menuButton.addEventListener("click", function () {
+
+        const isHidden = mobileMenu.classList.contains("hidden");
+
+        mobileMenu.classList.toggle("hidden");
+
+        menuButton.setAttribute("aria-expanded", String(isHidden));
+
+        menuIcon.classList.toggle("fa-bars");
+        menuIcon.classList.toggle("fa-times");
+
+    });
+
+
+    // Close mobile menu after selecting a link
+    document.querySelectorAll(".mobile-link").forEach(function(link) {
+
+        link.addEventListener("click", function() {
+
+            mobileMenu.classList.add("hidden");
+
+            menuButton.setAttribute("aria-expanded", "false");
+
+            menuIcon.classList.remove("fa-times");
+            menuIcon.classList.add("fa-bars");
+
+        });
+
+    });
+
+
+    // Flyer modal
+    const flyerModal = document.getElementById("flyer-modal");
+
+    function openFlyerModal() {
+        flyerModal.classList.remove("hidden");
+        flyerModal.classList.add("flex");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeFlyerModal() {
+        flyerModal.classList.add("hidden");
+        flyerModal.classList.remove("flex");
+        document.body.style.overflow = "auto";
+    }
+
+
+    // Close flyer modal when clicking outside the flyer
+    flyerModal.addEventListener("click", function(event) {
+
+        if (event.target === flyerModal) {
+            closeFlyerModal();
         }
-        function closePopup() {
-            document.getElementById('batch-popup').style.display = 'none';
+
+    });
+
+
+    // Close flyer modal with Escape key
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+            closeFlyerModal();
         }
-    </script>
+
+    });
+
+</script>
+
 </body>
-</html>
+        </html>
