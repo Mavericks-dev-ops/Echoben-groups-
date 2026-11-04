@@ -1799,6 +1799,20 @@ function downloadGuide(title, content) {
 /* END OF WEBSITE SCRIPT */
 
 </script>
+    
+<!-- SUPABASE CONNECTION -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const SUPABASE_URL = "https://oslmgbruolvgoqkagsqm.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_n2Hr-9xxdz1bu90JEa-lVQ_evrjJ4CR";
+
+window.echobenSupabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+</script>
+    
 </body>
 </html>
