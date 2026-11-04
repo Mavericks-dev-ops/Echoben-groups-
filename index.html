@@ -1651,3 +1651,137 @@ AFTER THE CALL
 - Record accurate notes.
 - Update the authorised CRM.
 - Follow the required process
+- Respect refusals.
+- Never misrepresent yourself or the purpose of a call.
+- Follow applicable privacy and telemarketing rules.
+
+AFTER THE CALL
+- Record accurate notes.
+- Update the authorised CRM.
+- Follow the required process.
+- Review your performance.
+`,
+
+support:`ECHOBEN GROUPS
+CUSTOMER SUPPORT STARTER GUIDE
+
+1. Listen carefully to the customer's concern.
+2. Acknowledge the issue.
+3. Ask relevant questions.
+4. Provide accurate information.
+5. Explain the next steps.
+6. Escalate issues when necessary.
+7. Maintain a professional tone.
+8. Protect customer information.
+9. Record interactions accurately.
+
+Remember CARE:
+Connect.
+Assess.
+Resolve.
+End professionally.`,
+
+va:`ECHOBEN GROUPS
+VIRTUAL ASSISTANT CHECKLIST
+
+DAILY TASKS
+- Check emails.
+- Review the calendar.
+- Organise appointments.
+- Update task lists.
+- Prepare documents.
+- Conduct online research.
+- Track deadlines.
+- Send progress reports.
+
+IMPORTANT SKILLS
+- Communication.
+- Time management.
+- Organisation.
+- Attention to detail.
+- Digital workplace tools.
+- Confidentiality.
+
+Always obtain authorisation before accessing a client's accounts or information.`,
+
+scam:`ECHOBEN GROUPS
+REMOTE JOB SCAM SAFETY GUIDE
+
+1. Research every company before applying.
+2. Verify the official company website.
+3. Be cautious of unrealistic salary promises.
+4. Never pay someone simply to secure a job.
+5. Do not share passwords or verification codes.
+6. Be careful with requests for sensitive personal information.
+7. Verify recruiter email addresses.
+8. Read contracts before accepting offers.
+9. Avoid suspicious links and attachments.
+10. Report suspected scams through appropriate channels.
+
+Remember: A legitimate opportunity should withstand reasonable verification.`,
+
+interview:`ECHOBEN GROUPS
+REMOTE JOB INTERVIEW PREPARATION GUIDE
+
+BEFORE THE INTERVIEW
+- Research the employer.
+- Understand the job description.
+- Test your internet connection.
+- Check your microphone and camera.
+- Prepare your CV.
+- Practise introducing yourself.
+
+COMMON QUESTIONS
+1. Tell me about yourself.
+2. Why are you interested in this role?
+3. What tools can you use?
+4. How do you manage deadlines?
+5. How would you handle a difficult customer?
+6. What makes you suitable for this position?
+
+USE THE STAR METHOD
+Situation.
+Task.
+Action.
+Result.
+
+FINAL REMINDERS
+- Be punctual.
+- Speak clearly.
+- Give honest answers.
+- Use genuine examples.
+- Ask relevant questions.
+- Follow up professionally.`
+};
+
+/* DOWNLOAD RESOURCE FUNCTION */
+
+function downloadGuide(title, content) {
+
+    const blob = new Blob(
+        [content],
+        { type: "text/plain;charset=utf-8" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = title.replace(/[^a-z0-9]/gi, "_") + ".txt";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+}
+
+/* END OF WEBSITE SCRIPT */
+
+</script>
+
+</body>
+</html>
