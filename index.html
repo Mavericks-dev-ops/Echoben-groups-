@@ -1591,39 +1591,77 @@ document.getElementById("mobileNav").style.display="none";
 document.getElementById("year").textContent =
 new Date().getFullYear();
 
-/* APPLICATION FORM */
+/* APPLICATION FORM - SUPABASE INTEGRATION */
 
-document.getElementById("applicationForm").addEventListener("submit",function(e){
+document.getElementById("applicationForm").addEventListener("submit", async function(e) {
 
-e.preventDefault();
+    e.preventDefault();
 
-if(!document.getElementById("consent").checked) {
-return;
-}
+    const form = this;
+    const message = document.getElementById("formMessage");
+    const consent = document.getElementById("consent");
+    const button = form.querySelector('button[type="submit"]');
 
-const formData=new FormData(this);
+    if (!consent.checked) {
+        message.textContent = "Please confirm your consent before submitting.";
+        return;
+    }
 
-let message="ECHOBEN GROUPS APPLICATION\n\n";
+    const formData = new FormData(form);
 
-for(const [key,value] of formData.entries()) {
-message+=key+": "+value+"\n";
-}
+    const application = {
+        full_name: formData.get("Full name").trim(),
+        email: formData.get("Email").trim(),
+        phone_number: formData.get("Phone number").trim(),
+        whatsapp_number: formData.get("Phone number").trim(),
+        country: formData.get("Country").trim(),
+        training_program: formData.get("Training pathway"),
+        payment_package: formData.get("Package"),
+        remote_experience: formData.get("Experience"),
+        device_availability: formData.get("Device"),
+        learning_schedule: formData.get("Availability"),
+        motivation: formData.get("Motivation"),
+        application_status: "pending"
+    };
 
-message+="\nI confirm that the information provided is accurate.";
+    const originalButtonText = button.textContent;
 
-const name=formData.get("Full name");
+    button.disabled = true;
+    button.textContent = "Submitting...";
+    message.textContent = "Please wait while we submit your application.";
 
-const subject=encodeURIComponent(
-"ECHOBEN Batch C Application - "+name
-);
+    try {
 
-const body=encodeURIComponent(message);
+        const { error } = await window.echobenSupabase
+            .from("applications")
+            .insert([application]);
 
-document.getElementById("formMessage").textContent =
-"Your email application is being prepared. Review it and press Send in your email application.";
+        if (error) {
+            throw error;
+        }
 
-window.location.href=
-"mailto:echobengroups@gmail.com?subject="+subject+"&body="+body;
+        message.textContent =
+            "Success! Your ECHOBEN application has been received. Our team will contact you.";
+
+        message.style.color = "#087443";
+
+        form.reset();
+
+    } catch (error) {
+
+        console.error("Application submission error:", error);
+
+        message.textContent =
+            "Sorry, your application could not be submitted. Please try again.";
+
+        message.style.color = "#dc2626";
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = originalButtonText;
+
+    }
 
 });
 
