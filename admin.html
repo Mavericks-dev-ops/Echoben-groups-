@@ -823,18 +823,24 @@ function showSection(section, button) {
 
     if (button) button.classList.add("active");
 
+    const pageTitles = {
+        dashboard: "Dashboard",
+        applications: "Application Management",
+        students: "Student Management"
+    };
+
     document.getElementById("pageTitle")
-    .textContent =
-    section === "dashboard"
-    ? "Dashboard"
-    : "Application Management";
+    .textContent = pageTitles[section] || "Dashboard";
 
     if (section === "applications") {
         renderApplications();
     }
 
-}
+    if (section === "students") {
+        loadStudents();
+    }
 
+}
 
 // LOAD APPLICATIONS
 
