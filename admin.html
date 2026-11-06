@@ -629,6 +629,115 @@ th {
 
         </section>
 
+                <!-- STUDENT MANAGEMENT -->
+
+        <section id="students" class="section">
+
+            <div class="content-card">
+
+                <h2>Student Management</h2>
+
+                <p>
+                    Manage registered students, enrolment status,
+                    programmes and training batches.
+                </p>
+
+                <!-- STUDENT STATISTICS -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <h3>Total Students</h3>
+                        <p id="totalStudents">0</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Active Students</h3>
+                        <p id="activeStudents">0</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Pending Students</h3>
+                        <p id="pendingStudents">0</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Suspended Students</h3>
+                        <p id="suspendedStudents">0</p>
+                    </div>
+
+                </div>
+
+
+                <!-- STUDENT SEARCH AND FILTERS -->
+
+                <div class="filters">
+
+                    <input
+                        type="search"
+                        id="searchStudents"
+                        placeholder="Search student name or phone..."
+                    >
+
+                    <select id="studentStatusFilter">
+                        <option value="all">All Enrolment Statuses</option>
+                        <option value="active">Active</option>
+                        <option value="pending">Pending</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+
+                    <select id="studentProgrammeFilter">
+                        <option value="all">All Programmes</option>
+                    </select>
+
+                    <select id="studentBatchFilter">
+                        <option value="all">All Batches</option>
+                    </select>
+
+                    <button class="secondary"
+                        onclick="loadStudents()">
+                        Refresh
+                    </button>
+
+                </div>
+
+
+                <!-- STUDENT RECORDS TABLE -->
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Phone Number</th>
+                                <th>Programme</th>
+                                <th>Package</th>
+                                <th>Batch</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="studentTable">
+
+                            <tr>
+                                <td colspan="7" class="empty">
+                                    Student records will appear here.
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
     </main>
 
 </div>
