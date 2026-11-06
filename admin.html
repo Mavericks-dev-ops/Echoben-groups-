@@ -1235,6 +1235,292 @@ async function updateApplicationStatus(id, status) {
 
 checkSession();
 
+    // =====================================
+// STUDENT MANAGEMENT
+// =====================================
+
+let studentRecords = [];
+
+
+// LOAD STUDENTS FROM SUPABASE
+
+async function loadStudents() {
+
+    const table = document.getElementById("studentTable");
+
+    table.innerHTML = `
+        <tr>
+            <td colspan="7" class="empty">
+                Loading students...
+            </td>
+        </tr>
+    `;
+
+    const { data: userData, error: userError } =
+        await db.auth.getUser();
+
+    if (userError || !userData.user) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty">
+                    Unable to verify administrator.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    const adminId = userData.user.id;
+
+    const { data, error } = await db
+        .from("student_profiles")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+
+        console.error("Student loading error:", error);
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty">
+                    Error loading students: ${escapeStudentHtml(error.message)}
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    // Exclude the administrator's own profile.
+
+    studentRecords = (data || []).filter(
+        student => student.id !== adminId
+    );
+
+    updateStudentStatistics();
+
+    populateStudentFilters();
+
+    renderStudents();
+
+}
+
+
+// HTML SECURITY
+
+function escapeStudentHtml(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[char]);
+
+}
+
+
+// STUDENT STATISTICS
+
+function updateStudentStatistics() {
+
+    document.getElementById("totalStudents").textContent =
+        studentRecords.length;
+
+    document.getElementById("activeStudents").textContent =
+        studentRecords.filter(s =>
+            (s.enrolment_status || "").toLowerCase() === "active"
+        ).length;
+
+    document.getElementById("pendingStudents").textContent =
+        studentRecords.filter(s =>
+            (s.enrolment_status || "").toLowerCase() === "pending"
+        ).length;
+
+    document.getElementById("suspendedStudents").textContent =
+        studentRecords.filter(s =>
+            (s.enrolment_status || "").toLowerCase() === "suspended"
+        ).length;
+
+}
+
+
+// POPULATE FILTERS
+
+function populateStudentFilters() {
+
+    const programmeFilter =
+        document.getElementById("studentProgrammeFilter");
+
+    const batchFilter =
+        document.getElementById("studentBatchFilter");
+
+    const selectedProgramme = programmeFilter.value;
+    const selectedBatch = batchFilter.value;
+
+    const programmes = [
+        ...new Set(
+            studentRecords
+                .map(s => s.training_program)
+                .filter(Boolean)
+        )
+    ].sort();
+
+    const batches = [
+        ...new Set(
+            studentRecords
+                .map(s => s.batch)
+                .filter(Boolean)
+        )
+    ].sort();
+
+    programmeFilter.innerHTML =
+        '<option value="all">All Programmes</option>';
+
+    programmes.forEach(programme => {
+
+        const option = document.createElement("option");
+
+        option.value = programme;
+        option.textContent = programme;
+
+        programmeFilter.appendChild(option);
+
+    });
+
+    batchFilter.innerHTML =
+        '<option value="all">All Batches</option>';
+
+    batches.forEach(batch => {
+
+        const option = document.createElement("option");
+
+        option.value = batch;
+        option.textContent = batch;
+
+        batchFilter.appendChild(option);
+
+    });
+
+    programmeFilter.value = programmes.includes(selectedProgramme)
+        ? selectedProgramme
+        : "all";
+
+    batchFilter.value = batches.includes(selectedBatch)
+        ? selectedBatch
+        : "all";
+
+}
+
+
+// DISPLAY AND FILTER STUDENTS
+
+function renderStudents() {
+
+    const search =
+        document.getElementById("searchStudents")
+        .value.toLowerCase().trim();
+
+    const status =
+        document.getElementById("studentStatusFilter").value;
+
+    const programme =
+        document.getElementById("studentProgrammeFilter").value;
+
+    const batch =
+        document.getElementById("studentBatchFilter").value;
+
+    const filtered = studentRecords.filter(student => {
+
+        const name = (student.full_name || "").toLowerCase();
+
+        const phone = (student.phone_number || "").toLowerCase();
+
+        const whatsapp = (student.whatsapp_number || "").toLowerCase();
+
+        const studentStatus =
+            (student.enrolment_status || "").toLowerCase();
+
+        const matchesSearch =
+            name.includes(search) ||
+            phone.includes(search) ||
+            whatsapp.includes(search);
+
+        const matchesStatus =
+            status === "all" || studentStatus === status;
+
+        const matchesProgramme =
+            programme === "all" ||
+            student.training_program === programme;
+
+        const matchesBatch =
+            batch === "all" ||
+            student.batch === batch;
+
+        return matchesSearch &&
+            matchesStatus &&
+            matchesProgramme &&
+            matchesBatch;
+
+    });
+
+    const table = document.getElementById("studentTable");
+
+    if (filtered.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty">
+                    No students found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    table.innerHTML = filtered.map(student => `
+
+        <tr>
+
+            <td>${escapeStudentHtml(student.full_name)}</td>
+
+            <td>${escapeStudentHtml(student.phone_number || "N/A")}</td>
+
+            <td>${escapeStudentHtml(student.training_program || "N/A")}</td>
+
+            <td>${escapeStudentHtml(student.payment_package || "N/A")}</td>
+
+            <td>${escapeStudentHtml(student.batch || "Unassigned")}</td>
+
+            <td>${escapeStudentHtml(student.enrolment_status || "Pending")}</td>
+
+            <td>Coming soon</td>
+
+        </tr>
+
+    `).join("");
+
+}
+
+
+// SEARCH AND FILTER EVENTS
+
+document.getElementById("searchStudents")
+.addEventListener("input", renderStudents);
+
+document.getElementById("studentStatusFilter")
+.addEventListener("change", renderStudents);
+
+document.getElementById("studentProgrammeFilter")
+.addEventListener("change", renderStudents);
+
+document.getElementById("studentBatchFilter")
+.addEventListener("change", renderStudents);
+
 </script>
 
 </body>
