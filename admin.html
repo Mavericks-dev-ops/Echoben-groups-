@@ -1,1 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>ECHOBEN | Admin Portal</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+    --navy: #071426;
+    --navy-light: #10243d;
+    --gold: #d6ad60;
+    --green: #16865b;
+    --white: #ffffff;
+    --muted: #8b9bb0;
+    --background: #f3f6fa;
+    --border: #e4e9f0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--background);
+    color: #263448;
+}
+
+/* LOGIN */
+
+#loginScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--navy);
+}
+
+.login-card {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 30px;
+    border-radius: 14px;
+}
+
+.brand {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.brand h1 {
+    color: var(--navy);
+    font-size: 27px;
+}
+
+.brand span {
+    color: var(--gold);
+}
+
+.brand p {
+    margin-top: 8px;
+    color: #718096;
+    font-size: 13px;
+}
+
+.login-card label {
+    display: block;
+    margin: 18px 0 7px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 11px 16px;
+    font-weight: bold;
+}
+
+.login-button {
+    width: 100%;
+    background: var(--gold);
+    color: var(--navy);
+    margin-top: 25px;
+    padding: 15px;
+}
+
+#loginMessage {
+    color: #c0392b;
+    font-size: 13px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* ADMIN PORTAL */
+
+#adminPortal {
+    display: none;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background: var(--navy);
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: 25px 15px;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    color: var(--gold);
+    padding: 10px;
+    font-size: 22px;
+}
+
+.sidebar small {
+    display: block;
+    color: #aab7c7;
+    padding: 0 10px 25px;
+}
+
+.nav-button {
+    width: 100%;
+    background: transparent;
+    color: #d4deeb;
+    text-align: left;
+    padding: 14px 12px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.nav-button:hover,
+.nav-button.active {
+    background: var(--navy-light);
+    color: var(--gold);
+}
+
+.main {
+    margin-left: 250px;
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.topbar h1 {
+    color: var(--navy);
+    font-size: 25px;
+}
+
+.admin-email {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 5px;
+}
+
+.logout {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 23px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+.stat-card p {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.stat-card h2 {
+    font-size: 30px;
+    color: var(--navy);
+}
+
+.content-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 25px;
+}
+
+.content-card h2 {
+    color: var(--navy);
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    min-width: 180px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px;
+}
+
+th, td {
+    padding: 15px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+th {
+    background: #f8fafc;
+    color: #64748b;
+}
+
+.badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.pending {
+    background: #fff3cd;
+    color: #946200;
+}
+
+.approved {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.rejected {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.action {
+    padding: 7px 10px;
+    margin: 2px;
+    font-size: 11px;
+}
+
+.approve {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.reject {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.view {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.secondary {
+    background: var(--navy);
+    color: white;
+}
+
+.empty {
+    text-align: center;
+    padding: 35px;
+    color: #94a3b8;
+}
+
+#portalMessage {
+    margin-bottom: 15px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: white;
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: var(--navy);
+}
+
+.detail {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.detail strong {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.modal-close {
+    float: right;
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+@media(max-width: 1000px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 700px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .sidebar nav {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .nav-button {
+        width: auto;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 18px;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .stat-card h2 {
+        font-size: 24px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN SCREEN -->
+
+<div id="loginScreen">
+
+    <div class="login-card">
+
+        <div class="brand">
+            <h1>ECHOBEN<span> GROUPS</span></h1>
+            <p>Remote Jobs Academy | Administration</p>
+        </div>
+
+        <form id="loginForm">
+
+            <label>Email Address</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Admin email"
+                required
+            >
+
+            <label>Password</label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button class="login-button" type="submit">
+                Sign In to Admin Portal
+            </button>
+
+        </form>
+
+        <p id="loginMessage"></p>
+
+    </div>
+
+</div>
+
+
+<!-- ADMIN PORTAL -->
+
+<div id="adminPortal">
+
+    <aside class="sidebar">
+
+        <h2>ECHOBEN</h2>
+        <small>Administration Portal</small>
+
+        <nav>
+
+            <button class="nav-button active"
+                onclick="showSection('dashboard', this)">
+                Dashboard
+            </button>
+
+            <button class="nav-button"
+                onclick="showSection('applications', this)">
+                Applications
+            </button>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p class="admin-email" id="adminEmail"></p>
+            </div>
+
+            <button class="logout" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+
+        <p id="portalMessage"></p>
+
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboard" class="section active">
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <p>Total Applications</p>
+                    <h2 id="totalApplications">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Pending Applications</p>
+                    <h2 id="pendingApplications">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Approved Applications</p>
+                    <h2 id="approvedApplications">0</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Rejected Applications</p>
+                    <h2 id="rejectedApplications">0</h2>
+                </div>
+
+            </div>
+
+            <div class="content-card">
+
+                <h2>Welcome to ECHOBEN Administration</h2>
+
+                <p>
+                    Manage applications, monitor enrolment
+                    and oversee the Remote Jobs Academy
+                    from this dashboard.
+                </p>
+
+                <br>
+
+                <button class="secondary"
+                    onclick="showSection('applications')">
+                    Manage Applications
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- APPLICATIONS -->
+
+        <section id="applications" class="section">
+
+            <div class="content-card">
+
+                <h2>Application Management</h2>
+
+                <div class="filters">
+
+                    <input
+                        type="search"
+                        id="searchApplications"
+                        placeholder="Search name or email..."
+                    >
+
+                    <select id="statusFilter">
+                        <option value="all">All Applications</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+
+                    <button class="secondary"
+                        onclick="loadApplications()">
+                        Refresh
+                    </button>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Applicant</th>
+                                <th>Email</th>
+                                <th>Programme</th>
+                                <th>Package</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="applicationTable">
+
+                            <tr>
+                                <td colspan="7" class="empty">
+                                    Loading applications...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- APPLICATION DETAILS MODAL -->
+
+<div class="modal" id="applicationModal">
+
+    <div class="modal-content">
+
+        <button class="modal-close"
+            onclick="closeModal()">
+            Close
+        </button>
+
+        <h2>Applicant Details</h2>
+
+        <div id="applicationDetails"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+// SUPABASE CONNECTION
+
+const SUPABASE_URL =
+"https://oslmgbruolvgoqkagsqm.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_n2Hr-9xxdz1bu90JEa-lVQ_evrjJ4CR";
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+let applications = [];
+
+
+// SAFE TEXT DISPLAY
+
+function escapeHTML(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+
+}
+
+
+// LOGIN
+
+document.getElementById("loginForm")
+.addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const message =
+    document.getElementById("loginMessage");
+
+    message.textContent = "Signing in...";
+
+    const email =
+    document.getElementById("email").value.trim();
+
+    const password =
+    document.getElementById("password").value;
+
+    const { data, error } =
+    await db.auth.signInWithPassword({
+        email,
+        password
+    });
+
+    if (error) {
+
+        message.textContent = error.message;
+        return;
+
+    }
+
+    await verifyAdmin();
+
+});
+
+
+// VERIFY ADMIN ROLE
+
+async function verifyAdmin() {
+
+    const { data, error } =
+    await db.auth.getUser();
+
+    if (error || !data.user) {
+
+        await db.auth.signOut();
+
+        document.getElementById("loginMessage")
+        .textContent = "Unable to verify account.";
+
+        return;
+
+    }
+
+    const user = data.user;
+
+    const role = user.app_metadata?.role;
+
+    if (role !== "admin") {
+
+        await db.auth.signOut();
+
+        document.getElementById("loginMessage")
+        .textContent =
+        "Access denied. Administrator privileges required.";
+
+        return;
+
+    }
+
+    document.getElementById("loginScreen")
+    .style.display = "none";
+
+    document.getElementById("adminPortal")
+    .style.display = "block";
+
+    document.getElementById("adminEmail")
+    .textContent = user.email;
+
+    document.getElementById("loginMessage")
+    .textContent = "";
+
+    await loadApplications();
+
+}
+
+
+// CHECK EXISTING SESSION
+
+async function checkSession() {
+
+    const { data } = await db.auth.getSession();
+
+    if (data.session) {
+
+        await verifyAdmin();
+
+    }
+
+}
+
+
+// LOGOUT
+
+async function logout() {
+
+    await db.auth.signOut();
+
+    applications = [];
+
+    document.getElementById("adminPortal")
+    .style.display = "none";
+
+    document.getElementById("loginScreen")
+    .style.display = "flex";
+
+    document.getElementById("loginForm").reset();
+
+}
+
+
+// NAVIGATION
+
+function showSection(section, button) {
+
+    document.querySelectorAll(".section")
+    .forEach(item => item.classList.remove("active"));
+
+    document.getElementById(section)
+    .classList.add("active");
+
+    document.querySelectorAll(".nav-button")
+    .forEach(item => item.classList.remove("active"));
+
+    if (button) button.classList.add("active");
+
+    document.getElementById("pageTitle")
+    .textContent =
+    section === "dashboard"
+    ? "Dashboard"
+    : "Application Management";
+
+    if (section === "applications") {
+        renderApplications();
+    }
+
+}
+
+
+// LOAD APPLICATIONS
+
+async function loadApplications() {
+
+    const table =
+    document.getElementById("applicationTable");
+
+    table.innerHTML = `
+        <tr>
+            <td colspan="7" class="empty">
+                Loading applications...
+            </td>
+        </tr>
+    `;
+
+    const { data, error } = await db
+        .from("applications")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty">
+                    Unable to load applications:
+                    ${escapeHTML(error.message)}
+                </td>
+            </tr>
+        `;
+
+        document.getElementById("portalMessage")
+        .textContent = "Application loading failed.";
+
+        return;
+
+    }
+
+    applications = data || [];
+
+    updateStatistics();
+
+    renderApplications();
+
+    document.getElementById("portalMessage")
+    .textContent =
+    applications.length + " application(s) loaded.";
+
+}
+
+
+// DASHBOARD STATISTICS
+
+function updateStatistics() {
+
+    document.getElementById("totalApplications")
+    .textContent = applications.length;
+
+    document.getElementById("pendingApplications")
+    .textContent =
+    applications.filter(a =>
+        a.application_status === "pending"
+    ).length;
+
+    document.getElementById("approvedApplications")
+    .textContent =
+    applications.filter(a =>
+        a.application_status === "approved"
+    ).length;
+
+    document.getElementById("rejectedApplications")
+    .textContent =
+    applications.filter(a =>
+        a.application_status === "rejected"
+    ).length;
+
+}
+
+
+// DISPLAY APPLICATIONS
+
+function renderApplications() {
+
+    const table =
+    document.getElementById("applicationTable");
+
+    const search =
+    document.getElementById("searchApplications")
+    .value.toLowerCase();
+
+    const status =
+    document.getElementById("statusFilter").value;
+
+    const filtered = applications.filter(app => {
+
+        const matchesSearch =
+        (app.full_name || "").toLowerCase().includes(search) ||
+        (app.email || "").toLowerCase().includes(search);
+
+        const matchesStatus =
+        status === "all" ||
+        app.application_status === status;
+
+        return matchesSearch && matchesStatus;
+
+    });
+
+    if (!filtered.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty">
+                    No applications found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    table.innerHTML = filtered.map(app => {
+
+        const badge =
+        app.application_status || "pending";
+
+        const date = app.created_at
+        ? new Date(app.created_at).toLocaleDateString()
+        : "N/A";
+
+        return `
+
+            <tr>
+
+                <td>${escapeHTML(app.full_name)}</td>
+
+                <td>${escapeHTML(app.email)}</td>
+
+                <td>${escapeHTML(app.training_program)}</td>
+
+                <td>${escapeHTML(app.payment_package)}</td>
+
+                <td>
+                    <span class="badge ${badge}">
+                        ${escapeHTML(badge)}
+                    </span>
+                </td>
+
+                <td>${escapeHTML(date)}</td>
+
+                <td>
+
+                    <button class="action view"
+                    onclick="viewApplication('${app.id}')">
+                        View
+                    </button>
+
+                    ${badge === "pending" ? `
+
+                        <button class="action approve"
+                        onclick="updateApplicationStatus('${app.id}', 'approved')">
+                            Approve
+                        </button>
+
+                        <button class="action reject"
+                        onclick="updateApplicationStatus('${app.id}', 'rejected')">
+                            Reject
+                        </button>
+
+                    ` : ""}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }).join("");
+
+}
+
+
+// APPLICATION SEARCH
+
+document.getElementById("searchApplications")
+.addEventListener("input", renderApplications);
+
+document.getElementById("statusFilter")
+.addEventListener("change", renderApplications);
+
+
+// VIEW APPLICATION
+
+function viewApplication(id) {
+
+    const app = applications.find(a => a.id === id);
+
+    if (!app) return;
+
+    const fields = {
+
+        "Full Name": app.full_name,
+        "Email": app.email,
+        "Phone Number": app.phone_number,
+        "WhatsApp Number": app.whatsapp_number,
+        "Country": app.country,
+        "Training Programme": app.training_program,
+        "Payment Package": app.payment_package,
+        "Remote Experience": app.remote_experience,
+        "Device Availability": app.device_availability,
+        "Learning Schedule": app.learning_schedule,
+        "Motivation": app.motivation,
+        "Application Status": app.application_status,
+        "Application Date": app.created_at
+
+    };
+
+    document.getElementById("applicationDetails")
+    .innerHTML = Object.entries(fields).map(([label, value]) => `
+
+        <div class="detail">
+            <strong>${escapeHTML(label)}</strong>
+            ${escapeHTML(value || "Not provided")}
+        </div>
+
+    `).join("");
+
+    document.getElementById("applicationModal")
+    .style.display = "block";
+
+}
+
+
+// CLOSE MODAL
+
+function closeModal() {
+
+    document.getElementById("applicationModal")
+    .style.display = "none";
+
+}
+
+
+// APPROVE OR REJECT APPLICATION
+
+async function updateApplicationStatus(id, status) {
+
+    if (!["approved", "rejected"].includes(status)) {
+        return;
+    }
+
+    const action =
+    status === "approved" ? "approve" : "reject";
+
+    if (!confirm(`Are you sure you want to ${action} this application?`)) {
+        return;
+    }
+
+    const { error } = await db
+        .from("applications")
+        .update({
+            application_status: status
+        })
+        .eq("id", id);
+
+    if (error) {
+
+        alert("Update failed: " + error.message);
+
+        return;
+
+    }
+
+    alert("Application successfully " + status + ".");
+
+    await loadApplications();
+
+}
+
+
+// START PORTAL
+
+checkSession();
+
+</script>
+
+</body>
+  </html>
