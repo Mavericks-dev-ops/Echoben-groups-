@@ -1540,11 +1540,10 @@ function renderStudents() {
             <td>${escapeStudentHtml(student.enrolment_status || "Pending")}</td>
 
             <td>
-    <button class="secondary"
-        onclick="openStudentProfile('${escapeStudentHtml(student.id)}')">
-        View Profile
-    </button>
-</td>
+                <button class="secondary"
+    onclick="window.location.href='student-profile.html?id=${encodeURIComponent(student.id)}'">
+    View Profile
+</button>
 
         </tr>
 
