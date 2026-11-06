@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Profile | ECHOBEN Groups</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f6fa;
+    color: #172338;
+}
+
+header {
+    background: #071426;
+    color: white;
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+header h2 {
+    font-size: 20px;
+}
+
+header button {
+    background: #d9a441;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 35px auto;
+    padding: 0 18px;
+}
+
+.page-heading {
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 27px;
+    margin-bottom: 8px;
+}
+
+.page-heading p {
+    color: #687386;
+}
+
+.profile-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    margin-bottom: 22px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #e7ebf0;
+    padding-bottom: 25px;
+}
+
+.passport {
+    width: 125px;
+    height: 145px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid #e4eaf1;
+    background: #edf1f5;
+}
+
+.profile-name h2 {
+    font-size: 24px;
+    margin-bottom: 9px;
+}
+
+.profile-name p {
+    color: #687386;
+    margin-bottom: 7px;
+}
+
+.status {
+    display: inline-block;
+    padding: 7px 13px;
+    border-radius: 20px;
+    background: #e8f7ee;
+    color: #18763d;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.section-title {
+    font-size: 17px;
+    margin-bottom: 20px;
+    color: #071426;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.detail {
+    border-bottom: 1px solid #edf0f4;
+    padding-bottom: 12px;
+    min-width: 0;
+}
+
+.detail label {
+    display: block;
+    color: #8490a0;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.detail p {
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.loading {
+    text-align: center;
+    padding: 70px 20px;
+    color: #687386;
+}
+
+.error {
+    background: #fff0f0;
+    color: #b42318;
+    padding: 18px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+@media(max-width: 600px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        padding: 20px;
+    }
+
+    .profile-name h2 {
+        font-size: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>ECHOBEN GROUPS</h2>
+    <button onclick="goBack()">Back to Students</button>
+</header>
+
+<div class="container">
+
+    <div class="page-heading">
+        <h1>Student Profile</h1>
+        <p>View and manage student information.</p>
+    </div>
+
+    <div id="profileContent" class="loading">
+        Loading student profile...
+    </div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL = "https://oslmgbruolvgoqkagsqm.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_n2Hr-9xxdz1bu90JEa-lVQ_evrjJ4CR";
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+const content = document.getElementById("profileContent");
+
+function escapeHTML(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function displayValue(value) {
+    return value
+        ? escapeHTML(value)
+        : "Not provided";
+}
+
+function formatDate(value) {
+    if (!value) return "Not provided";
+
+    return new Date(value + "T00:00:00")
+        .toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+}
+
+function detail(label, value) {
+    return `
+        <div class="detail">
+            <label>${label}</label>
+            <p>${value}</p>
+        </div>
+    `;
+}
+
+async function loadStudentProfile() {
+
+    try {
+
+        const {
+            data: { session },
+            error: sessionError
+        } = await db.auth.getSession();
+
+        if (sessionError || !session) {
+            content.innerHTML = `
+                <div class="error">
+                    Your session has expired.
+                    Please log in again through the Admin Portal.
+                </div>
+            `;
+            return;
+        }
+
+        const role = session.user.app_metadata?.role;
+
+        if (role !== "admin") {
+            content.innerHTML = `
+                <div class="error">
+                    Access denied. Administrator permission required.
+                </div>
+            `;
+            return;
+        }
+
+        const params = new URLSearchParams(
+            window.location.search
+        );
+
+        const studentId = params.get("id");
+
+        if (!studentId) {
+            content.innerHTML = `
+                <div class="error">
+                    No student ID was provided.
+                </div>
+            `;
+            return;
+        }
+
+        const { data: student, error } = await db
+            .from("student_profiles")
+            .select("*")
+            .eq("id", studentId)
+            .single();
+
+        if (error || !student) {
+            content.innerHTML = `
+                <div class="error">
+                    Unable to load this student profile.
+                    Please check that the student record exists.
+                </div>
+            `;
+            return;
+        }
+
+        let photoHTML = `
+            <div class="passport"
+                style="display:flex;align-items:center;justify-content:center;">
+                No Photo
+            </div>
+        `;
+
+        if (student.passport_photo_path) {
+
+            const { data: photo, error: photoError } =
+                await db.storage
+                    .from("student-passports")
+                    .createSignedUrl(
+                        student.passport_photo_path,
+                        300
+                    );
+
+            if (!photoError && photo?.signedUrl) {
+                photoHTML = `
+                    <img
+                        class="passport"
+                        src="${escapeHTML(photo.signedUrl)}"
+                        alt="Student passport photograph"
+                    >
+                `;
+            }
+        }
+
+        const status = displayValue(
+            student.enrolment_status
+        );
+
+        content.className = "";
+
+        content.innerHTML = `
+
+            <div class="profile-card">
+
+                <div class="profile-header">
+
+                    ${photoHTML}
+
+                    <div class="profile-name">
+
+                        <h2>${displayValue(student.full_name)}</h2>
+
+                        <p>
+                            Student ID:
+                            <strong>${displayValue(student.student_id)}</strong>
+                        </p>
+
+                        <p>
+                            Programme:
+                            ${displayValue(student.training_program)}
+                        </p>
+
+                        <span class="status">
+                            ${status}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h3 class="section-title">
+                    Personal Information
+                </h3>
+
+                <div class="details-grid">
+
+                    ${detail("Full Name", displayValue(student.full_name))}
+                    ${detail("Date of Birth", formatDate(student.date_of_birth))}
+                    ${detail("Gender", displayValue(student.gender))}
+                    ${detail("Email Address", displayValue(student.email))}
+                    ${detail("Phone Number", displayValue(student.phone_number))}
+                    ${detail("WhatsApp Number", displayValue(student.whatsapp_number))}
+
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h3 class="section-title">
+                    Residential Information
+                </h3>
+
+                <div class="details-grid">
+
+                    ${detail("Residential Address", displayValue(student.residential_address))}
+                    ${detail("City", displayValue(student.city))}
+                    ${detail("State", displayValue(student.state))}
+                    ${detail("Country", displayValue(student.country))}
+                    ${detail("Postal Code", displayValue(student.postal_code))}
+
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h3 class="section-title">
+                    Emergency Contact
+                </h3>
+
+                <div class="details-grid">
+
+                    ${detail("Contact Name", displayValue(student.emergency_contact_name))}
+                    ${detail("Relationship", displayValue(student.emergency_contact_relationship))}
+                    ${detail("Contact Phone", displayValue(student.emergency_contact_phone))}
+
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h3 class="section-title">
+                    Educational and Professional Background
+                </h3>
+
+                <div class="details-grid">
+
+                    ${detail("Highest Education", displayValue(student.highest_education))}
+                    ${detail("Current Occupation", displayValue(student.occupation))}
+                    ${detail("Remote Work Experience", displayValue(student.previous_remote_experience))}
+                    ${detail("Relevant Skills", displayValue(student.relevant_skills))}
+
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h3 class="section-title">
+                    Academy Enrolment Information
+                </h3>
+
+                <div class="details-grid">
+
+                    ${detail("Training Programme", displayValue(student.training_program))}
+                    ${detail("Payment Package", displayValue(student.payment_package))}
+                    ${detail("Batch", displayValue(student.batch))}
+                    ${detail("Enrolment Status", status)}
+                    ${detail("Preferred Contact Method", displayValue(student.preferred_contact_method))}
+                    ${detail("Profile Completed", student.profile_completed ? "Yes" : "No")}
+
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h3 class="section-title">
+                    Account Information
+                </h3>
+
+                <div class="details-grid">
+
+                    ${detail("Registration Date", student.created_at ? new Date(student.created_at).toLocaleDateString("en-GB") : "Not available")}
+                    ${detail("Last Updated", student.updated_at ? new Date(student.updated_at).toLocaleDateString("en-GB") : "Not available")}
+                    ${detail("Terms Accepted", formatDate(student.terms_accepted_at?.slice(0,10)))}
+                    ${detail("Privacy Consent", formatDate(student.privacy_consent_at?.slice(0,10)))}
+
+                </div>
+
+            </div>
+
+        `;
+
+    } catch (error) {
+
+        console.error(error);
+
+        content.innerHTML = `
+            <div class="error">
+                Something went wrong while loading the profile.
+            </div>
+        `;
+    }
+}
+
+function goBack() {
+    window.location.href = "admin.html";
+}
+
+loadStudentProfile();
+
+</script>
+
+</body>
+</html>
