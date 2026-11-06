@@ -1539,7 +1539,12 @@ function renderStudents() {
 
             <td>${escapeStudentHtml(student.enrolment_status || "Pending")}</td>
 
-            <td>Coming soon</td>
+            <td>
+    <button class="secondary"
+        onclick="openStudentProfile('${escapeStudentHtml(student.id)}')">
+        View Profile
+    </button>
+</td>
 
         </tr>
 
